@@ -1,18 +1,7 @@
 # GLOEN
 
-<<<<<<< HEAD
-## Eyas time
-
-### yo im goated 
-=======
-<<<<<<< HEAD
-Hello
-=======
-## Eyas time
->>>>>>> f777c28f15ab19992bc301b0ac69fec17a87e37d
->>>>>>> 91370ec70f95ae2343d59a094382547574463ad0
- Editing Eyas' work - Labib
-
-```python
-print("im goated")
-```
+How to run WebApp:
+npm install
+    This will install the things you need to run the web app
+npm run dev
+    This will start running the web app. Hit command/control click to open the link
