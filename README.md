@@ -1,7 +1,24 @@
 # GLOEN
 
-How to run WebApp:
+## How to run the WebApp
+
+1. Open a termnal 
+2. Navagate to the web app directory using this command 
+
+```sh
+cd WebApp
+```
+
+3. Install the dependances 
+
+```sh
 npm install
-    This will install the things you need to run the web app
+```
+
+4. Start the server 
+
+```sh
 npm run dev
-    This will start running the web app. Hit command/control click to open the link
+```
+
+5. Click on the link when it appears to view the website
