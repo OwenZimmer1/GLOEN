@@ -1,18 +1,24 @@
 # GLOEN
 
-<<<<<<< HEAD
-## Eyas time
+## How to run the WebApp
 
-### yo im goated 
-=======
-<<<<<<< HEAD
-Hello
-=======
-## Eyas time
->>>>>>> f777c28f15ab19992bc301b0ac69fec17a87e37d
->>>>>>> 91370ec70f95ae2343d59a094382547574463ad0
- Editing Eyas' work - Labib
+1. Open a termnal 
+2. Navagate to the web app directory using this command 
 
-```python
-print("im goated")
+```sh
+cd WebApp
 ```
+
+3. Install the dependances 
+
+```sh
+npm install
+```
+
+4. Start the server 
+
+```sh
+npm run dev
+```
+
+5. Click on the link when it appears to view the website
