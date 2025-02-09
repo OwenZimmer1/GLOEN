@@ -2,14 +2,14 @@
 
 ## How to run the WebApp
 
-1. Open a termnal 
-2. Navagate to the web app directory using this command 
+1. Open a terminal 
+2. Navigate to the web app directory using this command 
 
 ```sh
 cd WebApp
 ```
 
-3. Install the dependances 
+3. Install the dependencies 
 
 ```sh
 npm install
