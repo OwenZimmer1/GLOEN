@@ -1,35 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import BradyLogo from './assets/bradyCorpLogo.png';
+import './App.css';
+import Home from './pages/home';
+import ImageUpload from './components/ImageUpload';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [view, setView] = useState('home');
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="app-container">
+        <img src={BradyLogo} alt="Brady Corporation Logo" className="logo" />
+
+        <div className="button-container">
+          <button onClick={() => setView('home')}>Home</button>
+          <button onClick={() => setView('upload')}>Upload</button>
+        </div>
+
+        {view === 'home' && <Home />}
+        {view === 'upload' && <ImageUpload />}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
