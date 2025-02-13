@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/home';
 import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera'
+import ViolationResults from './components/ViolationResults'; 
 
 function App() {
   const [view, setView] = useState('home');
@@ -17,11 +18,13 @@ function App() {
           <button onClick={() => setView('home')}>Home</button>
           <button onClick={() => setView('upload')}>Upload</button>
           <button onClick={() => setView('camera')}>Camera</button>
+          <button onClick={() => setView('violation')}>Display Violation</button>
         </div>
 
         {view === 'home' && <Home />}
         {view === 'upload' && <ImageUpload />}
         {view === 'camera' && <Camera />}
+        {view === 'violation' && <ViolationResults />}
       </div>
     </>
   );
