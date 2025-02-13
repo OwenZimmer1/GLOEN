@@ -1,4 +1,6 @@
 # GLOEN
+- [GLOEN](#gloen)
+  - [How to run the WebApp](#how-to-run-the-webapp)
 
 ## How to run the WebApp
 
@@ -13,6 +15,7 @@ cd WebApp
 
 ```sh
 npm install
+npm install react-webcam
 ```
 
 4. Start the server 

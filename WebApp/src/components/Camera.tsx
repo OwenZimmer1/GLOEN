@@ -1,19 +1,23 @@
-import React, { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 
 function CameraComponent() {
-  const webcamRef = useRef<Webcam>(null);
+  const webcam = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
   const capture = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
+    const imageSrc = webcam.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
     }
-  }, [webcamRef]);
+  }, [webcam]);
 
   const retake = () => {
     setImgSrc(null);
+  };
+
+  const videoConstraints = {
+    facingMode: 'user'
   };
 
   return (
@@ -27,6 +31,7 @@ function CameraComponent() {
             style={{ width: "100%", maxWidth: "400px" }}
           />
           <div>
+            <button onClick={retake}>Upload Immage</button>
             <button onClick={retake}>Retake Photo</button>
           </div>
         </div>
@@ -34,13 +39,14 @@ function CameraComponent() {
         <div>
           <Webcam
             audio={false}
-            ref={webcamRef}
+            ref={webcam}
             screenshotFormat="image/jpeg"
             style={{
               width: "100%",
               maxWidth: "400px",
               border: "2px solid black",
             }}
+            videoConstraints={videoConstraints}
           />
           <div>
             <button onClick={capture}>Capture Photo</button>
