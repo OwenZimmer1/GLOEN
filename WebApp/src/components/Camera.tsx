@@ -2,16 +2,16 @@ import React, { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 
 function CameraComponent() {
-  const webcamRef = useRef(null);
-  const [imgSrc, setImgSrc] = useState(null);
+  const webcamRef = useRef<Webcam>(null);
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
 
-  // Capture function to take a photo
   const capture = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImgSrc(imageSrc);
+    const imageSrc = webcamRef.current?.getScreenshot();
+    if (imageSrc) {
+      setImgSrc(imageSrc);
+    }
   }, [webcamRef]);
 
-  // Retake function to reset the image
   const retake = () => {
     setImgSrc(null);
   };
@@ -26,7 +26,9 @@ function CameraComponent() {
             alt="Captured"
             style={{ width: "100%", maxWidth: "400px" }}
           />
-          <button onClick={retake}>Retake Photo</button>
+          <div>
+            <button onClick={retake}>Retake Photo</button>
+          </div>
         </div>
       ) : (
         <div>
