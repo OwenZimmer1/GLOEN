@@ -1,20 +1,33 @@
-import { useState } from 'react'
-import viteLogo from './assets/bradyCorpLogo.png'
-import './App.css'
+import { useState } from 'react';
+import BradyLogo from './assets/bradyCorpLogo.png';
+import './App.css';
+import Home from './pages/home';
+import ImageUpload from './components/ImageUpload';
+import Camera from './components/Camera'
+import ViolationResults from './components/ViolationResults'; 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [view, setView] = useState('home');
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
+      <div className="app-container">
+        <img src={BradyLogo} alt="Brady Corporation Logo" className="logo" />
+
+        <div className="button-container">
+          <button onClick={() => setView('home')}>Home</button>
+          <button onClick={() => setView('upload')}>Upload</button>
+          <button onClick={() => setView('camera')}>Camera</button>
+          <button onClick={() => setView('violation')}>Display Violation</button>
+        </div>
+
+        {view === 'home' && <Home />}
+        {view === 'upload' && <ImageUpload />}
+        {view === 'camera' && <Camera />}
+        {view === 'violation' && <ViolationResults />}
       </div>
-      <h1>OSHA Violaters</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
