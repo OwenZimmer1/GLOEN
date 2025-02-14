@@ -31,7 +31,7 @@ function CameraComponent() {
             style={{ width: "100%", maxWidth: "400px" }}
           />
           <div>
-            <button onClick={retake}>Upload Immage</button>
+            <button onClick={retake}>Upload Image</button>
             <button onClick={retake}>Retake Photo</button>
           </div>
         </div>
