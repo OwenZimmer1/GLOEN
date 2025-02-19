@@ -1,7 +1,11 @@
 import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 
-function CameraComponent() {
+interface CameraProps {
+  onAddToHistory: (imageUrl: string, report?: string) => void;
+}
+
+function CameraComponent({ onAddToHistory }: CameraProps) {
   const webcam = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
@@ -9,8 +13,9 @@ function CameraComponent() {
     const imageSrc = webcam.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
+      onAddToHistory(imageSrc, 'No violations detected');
     }
-  }, [webcam]);
+  }, [webcam, onAddToHistory]);
 
   const retake = () => {
     setImgSrc(null);
