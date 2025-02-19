@@ -4,10 +4,9 @@ import { getPredictions, Prediction } from "../services/predictService";
 
 interface PredictionProps {
   file: File;
-  groundTruth: string; // Expected class (e.g., extracted from folder name or user input)
 }
 
-const PredictionPage: React.FC<PredictionProps> = ({ file, groundTruth }) => {
+const PredictionPage: React.FC<PredictionProps> = ({ file }) => {
   const [predictions, setPredictions] = useState<Prediction[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -17,7 +16,13 @@ const PredictionPage: React.FC<PredictionProps> = ({ file, groundTruth }) => {
     setError("");
     try {
       const preds = await getPredictions(file);
-      setPredictions(preds);
+      // If the top prediction is nearly certain (>=0.99), use only that;
+      // otherwise, use the top 4 predictions.
+      if (preds[0].probability >= 0.99) {
+        setPredictions(preds.slice(0, 1));
+      } else {
+        setPredictions(preds.slice(0, 4));
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -38,16 +43,14 @@ const PredictionPage: React.FC<PredictionProps> = ({ file, groundTruth }) => {
           {predictions.length > 0 && (
             <p>
               {predictions[0].prediction} (Confidence:{" "}
-              {(predictions[0].probability * 100).toFixed(2)}%){" "}
-              {predictions[0].prediction.toLowerCase().includes(groundTruth.toLowerCase()) ? "✓" : "X"}
+              {(predictions[0].probability * 100).toFixed(2)}%)
             </p>
           )}
           <h3>Top Predictions:</h3>
           <ul>
             {predictions.map((pred, idx) => (
               <li key={idx}>
-                {pred.prediction} (Confidence: {(pred.probability * 100).toFixed(2)}%){" "}
-                {pred.prediction.toLowerCase().includes(groundTruth.toLowerCase()) ? "✓" : "X"}
+                {pred.prediction} (Confidence: {(pred.probability * 100).toFixed(2)}%)
               </li>
             ))}
           </ul>
