@@ -23,7 +23,7 @@ def main():
 
     image_path = sys.argv[1]
     # Update model path as necessary.
-    model_path = "/content/drive/MyDrive/train24/train3/weights/best.pt"
+    model_path = "best.pt"
     if not os.path.isfile(model_path):
         print(json.dumps({"error": f"Model file not found at {model_path}"}))
         sys.exit(1)
