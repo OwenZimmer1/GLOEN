@@ -1,4 +1,6 @@
 // src/App.tsx
+"use client";
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import NavBar from "./components/Navbar";
@@ -8,22 +10,30 @@ import Camera from "./components/Camera";
 import PredictionPage from "./pages/Prediction";
 
 const App: React.FC = () => {
-  const [view, setView] = useState("home");
+  // "view" controls which page is shown: "home", "upload", "camera", or "prediction"
+  const [view, setView] = useState<string>("home");
+  // "file" will store the image file selected or captured
   const [file, setFile] = useState<File | null>(null);
+  // "groundTruth" is optional—for example, it might come from the folder name or user input.
   const [groundTruth, setGroundTruth] = useState<string>("");
 
-  // For responsive layout.
-  const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
+  // For responsive layout: detect if the window is vertical
+  const [isVertical, setIsVertical] = useState<boolean>(true);
   useEffect(() => {
-    const handleResize = () => setIsVertical(window.innerWidth < window.innerHeight);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    if (typeof window !== "undefined") {
+      setIsVertical(window.innerWidth < window.innerHeight);
+      const handleResize = () => setIsVertical(window.innerWidth < window.innerHeight);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
-  // Callback for ImageUpload component to update file and ground truth (if applicable).
+  // Callback passed to ImageUpload and Camera components.
+  // When an image is selected/captured, we update our state and switch to prediction view.
   const handleFileSelected = (selectedFile: File, gt: string) => {
+    console.log("File selected:", selectedFile);
     setFile(selectedFile);
-    setGroundTruth(gt); // You could get this from the file's folder or user input.
+    setGroundTruth(gt);
     setView("prediction");
   };
 
