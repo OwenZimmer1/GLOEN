@@ -20,9 +20,9 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const onAddToHistory = (imageUrl: string, report: string) => {
-    setHistory((prevHistory) => [...prevHistory, { imageUrl, report }]);
-  };
+  const onAddToHistory = (imageUrl: string, report?: string) => {
+    setHistory((prevHistory) => [...prevHistory, { imageUrl, report: report || '' }]);
+  };  
   
   return (
     <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
