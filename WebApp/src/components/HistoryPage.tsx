@@ -1,0 +1,1 @@
+// Records history of the pictures taken (maybe only for the session)
