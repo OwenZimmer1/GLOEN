@@ -40,3 +40,98 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #3a3a3a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-buttons button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  gap: 10px;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.navbar-buttons button.active {
+  outline: 50px auto -webkit-focus-ring-color;
+}
+
+.navbar.vertical {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar.vertical .dropdown {
+  position: relative;
+}
+
+.navbar.vertical .dropdown-toggle {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 8px;
+}
+
+.navbar.vertical .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #3a3a3a;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.navbar.vertical .dropdown-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar.vertical .dropdown-menu button:hover {
+  background-color: #4a4a4a;
+}
+
+.content {
+  margin-top: 60px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .navbar-buttons {
+    display: none;
+  }
+}
