@@ -52,10 +52,10 @@ const NavBar: React.FC<NavBarProps> = ({ onViewChange }) => {
         Camera
       </button>
       <button
-        className={activeView === "violation" ? "active" : ""}
-        onClick={() => handleViewChange("violation")}
+        className={activeView === "history" ? "active" : ""}
+        onClick={() => handleViewChange("history")}
       >
-        Display Violation
+        History
       </button>
     </>
   );
