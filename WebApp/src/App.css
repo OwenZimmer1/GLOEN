@@ -81,8 +81,57 @@
   outline: 50px auto -webkit-focus-ring-color;
 }
 
+.navbar.vertical {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar.vertical .dropdown {
+  position: relative;
+}
+
+.navbar.vertical .dropdown-toggle {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 8px;
+}
+
+.navbar.vertical .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #3a3a3a;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.navbar.vertical .dropdown-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar.vertical .dropdown-menu button:hover {
+  background-color: #4a4a4a;
+}
 
 .content {
-  margin-top: 60px; 
+  margin-top: 60px;
   padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .navbar-buttons {
+    display: none;
+  }
 }
