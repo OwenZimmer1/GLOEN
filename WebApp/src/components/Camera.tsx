@@ -13,12 +13,18 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     const imageSrc = webcam.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
-      onAddToHistory(imageSrc, 'No violations detected');
     }
-  }, [webcam, onAddToHistory]);
+  }, []);
 
   const retake = () => {
     setImgSrc(null);
+  };
+
+  const upload = () => {
+    if (imgSrc) {
+      onAddToHistory(imgSrc);
+      setImgSrc(null);
+    }
   };
 
   const videoConstraints = {
@@ -36,7 +42,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             style={{ width: "100%", maxWidth: "400px" }}
           />
           <div>
-            <button onClick={retake}>Upload Image</button>
+            <button onClick={upload}>Upload Image</button>
             <button onClick={retake}>Retake Photo</button>
           </div>
         </div>
