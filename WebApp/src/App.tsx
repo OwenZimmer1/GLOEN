@@ -1,42 +1,42 @@
 // src/App.tsx
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import NavBar from './components/Navbar';
-import Home from './pages/home';
-import ImageUpload from './components/ImageUpload';
-import Camera from './components/Camera';
-import ViolationResults from './components/ViolationResults';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import NavBar from "./components/Navbar";
+import Home from "./pages/Home";
+import ImageUpload from "./components/ImageUpload";
+import Camera from "./components/Camera";
+import PredictionPage from "./pages/Prediction";
 
 const App: React.FC = () => {
-  const [view, setView] = useState('home');
-  const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
-  const [predictions, setPredictions] = useState<any>(null);
-  const [imageSource, setImageSource] = useState<string>("");
+  const [view, setView] = useState("home");
+  const [file, setFile] = useState<File | null>(null);
+  const [groundTruth, setGroundTruth] = useState<string>("");
 
+  // For responsive layout.
+  const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
   useEffect(() => {
-    const handleResize = () => {
-      setIsVertical(window.innerWidth < window.innerHeight);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const handleResize = () => setIsVertical(window.innerWidth < window.innerHeight);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // This callback will be passed to ImageUpload and Camera components.
-  // When an image is processed and predictions are obtained, call this to update state.
-  const handlePrediction = (preds: any, imgSrc: string) => {
-    setPredictions(preds);
-    setImageSource(imgSrc);
-    setView('violation');
+  // Callback for ImageUpload component to update file and ground truth (if applicable).
+  const handleFileSelected = (selectedFile: File, gt: string) => {
+    setFile(selectedFile);
+    setGroundTruth(gt); // You could get this from the file's folder or user input.
+    setView("prediction");
   };
 
   return (
-    <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
+    <div className={`app-container ${isVertical ? "vertical" : ""}`}>
       <NavBar onViewChange={setView} />
       <div className="content">
-        {view === 'home' && <Home />}
-        {view === 'upload' && <ImageUpload onPrediction={handlePrediction} />}
-        {view === 'camera' && <Camera onPrediction={handlePrediction} />}
-        {view === 'violation' && <ViolationResults predictions={predictions} imageSource={imageSource} />}
+        {view === "home" && <Home />}
+        {view === "upload" && <ImageUpload onFileSelect={handleFileSelected} />}
+        {view === "camera" && <Camera onFileSelect={handleFileSelected} />}
+        {view === "prediction" && file && (
+          <PredictionPage file={file} groundTruth={groundTruth} />
+        )}
       </div>
     </div>
   );
