@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Violation {
   imageName: string;
@@ -11,6 +11,7 @@ interface Violation {
 const ViolationResults: React.FC = () => {
   const [latestViolation, setLatestViolation] = useState<Violation | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const imageUrl = location.state?.imageUrl;
 
   const fetchLatestViolation = () => {
@@ -27,6 +28,10 @@ const ViolationResults: React.FC = () => {
   useEffect(() => {
     fetchLatestViolation();
   }, []);
+
+  const handleGoBack = () => {
+    navigate(-1); // This will take the user back to the previous page
+  };
 
   return (
     <div className="violation-display">
@@ -48,6 +53,7 @@ const ViolationResults: React.FC = () => {
       ) : (
         <p>No violation detected. Please upload or take a picture to check for violations.</p>
       )}
+      <button onClick={handleGoBack} style={{ marginBottom: '20px' }}>Go Back</button>
     </div>
   );
 };
