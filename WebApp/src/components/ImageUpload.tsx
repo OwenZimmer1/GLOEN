@@ -1,4 +1,6 @@
 import { useState, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 interface ImageUploadProps {
   onAddToHistory: (imageUrl: string) => void;
@@ -6,6 +8,7 @@ interface ImageUploadProps {
 
 function ImageUpload({ onAddToHistory }: ImageUploadProps) {
   const [imageSrc, setImageSrc] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -17,6 +20,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
   const upload = () => {
     if (imageSrc) {
       onAddToHistory(imageSrc);
+      navigate("/violation", { state: { imageUrl: imageSrc } });
       setImageSrc("");
     }
   };
