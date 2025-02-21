@@ -1,4 +1,5 @@
 import React from "react";
+import "./HistoryPage.css"; // We'll create this CSS file
 
 interface HistoryPageProps {
   history: { imageUrl: string; report: string }[]; // History structure
@@ -11,15 +12,15 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
       {history.length === 0 ? (
         <p>No history available.</p>
       ) : (
-        <div className="history-list">
+        <div className="history-grid">
           {[...history].reverse().map((entry, index) => (
             <div key={history.length - 1 - index} className="history-entry">
               <img
                 src={entry.imageUrl}
                 alt={`Captured ${history.length - 1 - index}`}
-                style={{ width: '100%', maxWidth: '400px', marginBottom: '10px' }}
+                className="history-image"
               />
-              <p>{entry.report}</p>
+              <p className="history-report">{entry.report}</p>
             </div>
           ))}
         </div>

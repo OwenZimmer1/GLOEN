@@ -1,0 +1,53 @@
+.history-page {
+    padding: 20px;
+  }
+  
+  .history-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  
+  .history-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .history-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .history-report {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 1200px) {
+    .history-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .history-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .history-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .history-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
