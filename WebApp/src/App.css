@@ -136,8 +136,6 @@
   }
 }
 
-/* ... (keep all your existing CSS) ... */
-
 .navbar-buttons {
   display: flex;
   gap: 10px;
@@ -177,4 +175,7 @@
   background-color: #4a4a4a;
 }
 
-/* ... (keep the rest of your CSS) ... */
+body, html {
+  margin: 0;
+  padding: 0;
+}
