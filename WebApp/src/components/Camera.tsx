@@ -1,19 +1,33 @@
 import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
 
-function CameraComponent() {
+interface CameraProps {
+  onAddToHistory: (imageUrl: string, report?: string) => void;
+}
+
+function CameraComponent({ onAddToHistory }: CameraProps) {
   const webcam = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const capture = useCallback(() => {
     const imageSrc = webcam.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
     }
-  }, [webcam]);
+  }, []);
 
   const retake = () => {
     setImgSrc(null);
+  };
+
+  const upload = () => {
+    if (imgSrc) {
+      onAddToHistory(imgSrc);
+      navigate("/violation", { state: { imageUrl: imgSrc } });
+      setImgSrc(null);
+    }
   };
 
   const videoConstraints = {
@@ -31,7 +45,7 @@ function CameraComponent() {
             style={{ width: "100%", maxWidth: "400px" }}
           />
           <div>
-            <button onClick={retake}>Upload Image</button>
+            <button onClick={upload}>Upload Image</button>
             <button onClick={retake}>Retake Photo</button>
           </div>
         </div>
