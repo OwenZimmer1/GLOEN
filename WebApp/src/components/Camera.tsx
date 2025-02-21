@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
 
 interface CameraProps {
   onAddToHistory: (imageUrl: string, report?: string) => void;
@@ -8,6 +9,7 @@ interface CameraProps {
 function CameraComponent({ onAddToHistory }: CameraProps) {
   const webcam = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const capture = useCallback(() => {
     const imageSrc = webcam.current?.getScreenshot();
@@ -24,6 +26,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     if (imgSrc) {
       onAddToHistory(imgSrc);
       setImgSrc(null);
+      navigate("/violation"); // Navigate to ViolationResults page
     }
   };
 

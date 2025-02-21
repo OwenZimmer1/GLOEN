@@ -16,6 +16,7 @@ cd WebApp
 ```sh
 npm install
 npm install react-webcam
+npm install react-router-dom
 ```
 
 4. Start the server 
