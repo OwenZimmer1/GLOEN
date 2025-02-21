@@ -1,35 +1,53 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ViolationResults: React.FC = () => {
-  const location = useLocation();
+
+interface ImageUploadProps {
+  onAddToHistory: (imageUrl: string) => void;
+}
+
+function ImageUpload({ onAddToHistory }: ImageUploadProps) {
+  const [imageSrc, setImageSrc] = useState<string>("");
   const navigate = useNavigate();
-  const { imageUrl, report } = location.state || {};
 
-  const handleGoBack = () => {
-    navigate(-1);
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImageSrc(URL.createObjectURL(file));
+    }
+  };
+
+  const upload = () => {
+    if (imageSrc) {
+      onAddToHistory(imageSrc);
+      navigate("/violation", { state: { imageUrl: imageSrc } });
+      setImageSrc("");
+    }
   };
 
   return (
-    <div className="violation-display">
-      <button onClick={handleGoBack} style={{ marginBottom: '20px' }}>Go Back</button>
-      {imageUrl && (
-        <img 
-          src={imageUrl} 
-          alt="Uploaded" 
-          style={{ maxWidth: '100%', maxHeight: '400px', marginBottom: '20px' }} 
-        />
-      )}
-      {report ? (
-        <div className="violation-details">
-          <h2>Violation Report</h2>
-          <p>{report}</p>
+    <div className="page-container">
+      <h1>Upload Your Image</h1>
+      <p>Upload an image to check for safety hazards.</p>
+      <input type="file" accept="image/*" onChange={handleImageChange} />
+      {imageSrc && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <div style={{ marginBottom: '5px' }}>
+            <button onClick={upload}>Upload Image</button>
+          </div>
+          <img
+            src={imageSrc}
+            alt="Uploaded Preview"
+            style={{
+              maxWidth: "80%",
+              maxHeight: "400px",
+              objectFit: "contain",
+            }}
+          />
         </div>
-      ) : (
-        <p>No violation detected. Please upload or take a picture to check for violations.</p>
       )}
     </div>
   );
-};
+}
 
-export default ViolationResults;
+export default ImageUpload;
