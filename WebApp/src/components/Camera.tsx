@@ -31,7 +31,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
   };
 
   const videoConstraints = {
-    facingMode: 'user'
+    facingMode: 'environment'
   };
 
   return (
