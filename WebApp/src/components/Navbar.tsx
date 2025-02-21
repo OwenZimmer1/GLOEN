@@ -45,6 +45,12 @@ const NavBar: React.FC = () => {
       >
         History
       </Link>
+      <Link
+        to="/pockethazmapp"
+        className={location.pathname === "/pockethazmapp" ? "active" : ""}
+      >
+        Pocket Hazmapp
+      </Link>
     </>
   );
 
