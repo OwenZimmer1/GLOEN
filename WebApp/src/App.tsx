@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/Navbar';
 import Home from './pages/home';
 import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera';
 import ViolationResults from './components/ViolationResults';
+import HistoryPage from './components/HistoryPage';
 
 const App: React.FC = () => {
-  const [view, setView] = useState('home');
   const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
+  const [history, setHistory] = useState<{ imageUrl: string; report: string }[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -18,16 +20,26 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const onAddToHistory = (imageUrl: string, report?: string) => {
+    setHistory((prevHistory) => [...prevHistory, { imageUrl, report: report || '' }]);
+  };  
+
   return (
-    <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
-      <NavBar onViewChange={setView} />
-      <div className="content">
-        {view === 'home' && <Home />}
-        {view === 'upload' && <ImageUpload />}
-        {view === 'camera' && <Camera />}
-        {view === 'violation' && <ViolationResults />}
+    <Router>
+      <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
+        <NavBar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
+            <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
+            <Route path="/violation" element={<ViolationResults />} />
+            <Route path="/history" element={<HistoryPage history={history} />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 

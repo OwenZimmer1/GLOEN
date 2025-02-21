@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import BradyLogo from "../assets/bradyCorpLogo.png";
 
-interface NavBarProps {
-  onViewChange: (view: string) => void;
-}
-
-const NavBar: React.FC<NavBarProps> = ({ onViewChange }) => {
+const NavBar: React.FC = () => {
   const switchViewWidth = 768;
-  const [activeView, setActiveView] = useState("home");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isVertical, setIsVertical] = useState(
     window.innerWidth <= switchViewWidth
   );
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,42 +18,33 @@ const NavBar: React.FC<NavBarProps> = ({ onViewChange }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleViewChange = (view: string) => {
-    setActiveView(view);
-    onViewChange(view);
-    setIsDropdownOpen(false);
-  };
-
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const renderButtons = () => (
     <>
-      <button
-        className={activeView === "home" ? "active" : ""}
-        onClick={() => handleViewChange("home")}
-      >
+      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
         Home
-      </button>
-      <button
-        className={activeView === "upload" ? "active" : ""}
-        onClick={() => handleViewChange("upload")}
+      </Link>
+      <Link
+        to="/upload"
+        className={location.pathname === "/upload" ? "active" : ""}
       >
         Upload
-      </button>
-      <button
-        className={activeView === "camera" ? "active" : ""}
-        onClick={() => handleViewChange("camera")}
+      </Link>
+      <Link
+        to="/camera"
+        className={location.pathname === "/camera" ? "active" : ""}
       >
         Camera
-      </button>
-      <button
-        className={activeView === "violation" ? "active" : ""}
-        onClick={() => handleViewChange("violation")}
+      </Link>
+      <Link
+        to="/history"
+        className={location.pathname === "/history" ? "active" : ""}
       >
-        Display Violation
-      </button>
+        History
+      </Link>
     </>
   );
 

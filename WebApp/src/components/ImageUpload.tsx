@@ -1,12 +1,27 @@
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ImageUpload() {
-  const [imageSrc, setImageSrc] = useState("");
+
+interface ImageUploadProps {
+  onAddToHistory: (imageUrl: string) => void;
+}
+
+function ImageUpload({ onAddToHistory }: ImageUploadProps) {
+  const [imageSrc, setImageSrc] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setImageSrc(URL.createObjectURL(file));
+    }
+  };
+
+  const upload = () => {
+    if (imageSrc) {
+      onAddToHistory(imageSrc);
+      navigate("/violation", { state: { imageUrl: imageSrc } });
+      setImageSrc("");
     }
   };
 
@@ -16,11 +31,20 @@ function ImageUpload() {
       <p>Upload an image to check for safety hazards.</p>
       <input type="file" accept="image/*" onChange={handleImageChange} />
       {imageSrc && (
-        <img
-          src={imageSrc}
-          alt="Uploaded Preview"
-          style={{ marginTop: "20px", maxWidth: "100%" }}
-        />
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <div style={{ marginBottom: '5px' }}>
+            <button onClick={upload}>Upload Image</button>
+          </div>
+          <img
+            src={imageSrc}
+            alt="Uploaded Preview"
+            style={{
+              maxWidth: "80%",
+              maxHeight: "400px",
+              objectFit: "contain",
+            }}
+          />
+        </div>
       )}
     </div>
   );
