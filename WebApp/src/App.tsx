@@ -29,7 +29,7 @@ const App: React.FC = () => {
       <NavBar onViewChange={setView} />
       <div className="content">
         {view === 'home' && <Home />}
-        {view === 'upload' && <ImageUpload />}
+        {view === 'upload' && <ImageUpload onAddToHistory={onAddToHistory} />}
         {view === 'camera' && <Camera onAddToHistory={onAddToHistory}/>}
         {view === 'violation' && <ViolationResults />}
         {view === 'history' && <HistoryPage history={history} />}

@@ -12,11 +12,11 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
         <p>No history available.</p>
       ) : (
         <div className="history-list">
-          {history.map((entry, index) => (
-            <div key={index} className="history-entry">
+          {[...history].reverse().map((entry, index) => (
+            <div key={history.length - 1 - index} className="history-entry">
               <img
                 src={entry.imageUrl}
-                alt={`Captured ${index}`}
+                alt={`Captured ${history.length - 1 - index}`}
                 style={{ width: '100%', maxWidth: '400px', marginBottom: '10px' }}
               />
               <p>{entry.report}</p>
