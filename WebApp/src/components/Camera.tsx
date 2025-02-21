@@ -25,8 +25,8 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
   const upload = () => {
     if (imgSrc) {
       onAddToHistory(imgSrc);
+      navigate("/violation", { state: { imageUrl: imgSrc } });
       setImgSrc(null);
-      navigate("/violation"); // Navigate to ViolationResults page
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-// Example type for the violation. will adjust after our backend is up.
 interface Violation {
   imageName: string;
   violationType: string;
@@ -10,12 +10,12 @@ interface Violation {
 
 const ViolationResults: React.FC = () => {
   const [latestViolation, setLatestViolation] = useState<Violation | null>(null);
+  const location = useLocation();
+  const imageUrl = location.state?.imageUrl;
 
-  // Fetch the latest violation log. Also waiting for backend
   const fetchLatestViolation = () => {
-    // Example data - replace with actual logic to get the latest violation
     const exampleViolation: Violation = {
-      imageName: "office_picture.jpg",
+      imageName: "Uploaded Image",
       violationType: "Eye Wash Station Blocked",
       status: "Violation Detected",
       timestamp: new Date().toLocaleString(),
@@ -30,6 +30,13 @@ const ViolationResults: React.FC = () => {
 
   return (
     <div className="violation-display">
+      {imageUrl && (
+        <img 
+          src={imageUrl} 
+          alt="Uploaded" 
+          style={{ maxWidth: '100%', maxHeight: '400px', marginBottom: '20px' }} 
+        />
+      )}
       {latestViolation ? (
         <div className="violation-details">
           <h2>Violation Report</h2>
