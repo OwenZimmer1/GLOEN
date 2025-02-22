@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoadingState } from "./LoadingState";
 
 
 interface ImageUploadProps {
@@ -9,6 +10,7 @@ interface ImageUploadProps {
 function ImageUpload({ onAddToHistory }: ImageUploadProps) {
   const [imageSrc, setImageSrc] = useState<string>("");
   const navigate = useNavigate();
+  const { isLoading, setLoading } = useLoadingState();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -17,11 +19,21 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
     }
   };
 
-  const upload = () => {
+  const upload = async () => {
     if (imageSrc) {
-      onAddToHistory(imageSrc);
-      navigate("/violation", { state: { imageUrl: imageSrc } });
-      setImageSrc("");
+      try {
+        setLoading(true);
+        // Simulate API call - replace this with actual API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        onAddToHistory(imageSrc);
+        navigate("/violation", { state: { imageUrl: imageSrc } });
+        setImageSrc("");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -33,7 +45,12 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
       {imageSrc && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <div style={{ marginBottom: '5px' }}>
-            <button onClick={upload}>Upload Image</button>
+            <button 
+              onClick={upload}
+              disabled={isLoading}
+            >
+              Upload Image
+            </button>
           </div>
           <img
             src={imageSrc}
