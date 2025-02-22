@@ -6,7 +6,7 @@ import Home from './pages/home';
 import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera';
 import ViolationResults from './components/ViolationResults';
-import HistoryPage from './components/HistoryPage';
+import HistoryPage from './pages/HistoryPage';
 import PocketHazmapp from './components/PocketHazmapp';
 import { LoadingStateProvider } from './components/LoadingState';
 
