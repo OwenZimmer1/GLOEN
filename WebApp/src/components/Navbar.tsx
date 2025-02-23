@@ -95,7 +95,7 @@ const NavBar: React.FC = () => {
                 <>
                   <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Upload</Link>
                   <Link to="/camera" className={location.pathname === "/camera" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Camera</Link>
-                  <Link to="/history" className={location.pathname === "/history" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>History</Link>
+                  <Link to="/reports" className={location.pathname === "/reports" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Reports</Link>
                   <Link to="/pockethazmapp" className={location.pathname === "/pockethazmapp" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Pocket Hazmapp</Link>
                 </>
               )}
