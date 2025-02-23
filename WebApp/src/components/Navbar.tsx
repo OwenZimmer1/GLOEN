@@ -21,20 +21,8 @@ const NavBar: React.FC = () => {
       }
     };
 
-    // Close dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
     window.addEventListener("resize", handleResize);
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -42,22 +30,9 @@ const NavBar: React.FC = () => {
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
-
-  // Navigation links array for easier maintenance
-  const navLinks = [
-    { to: "/", label: "Home" },
-    { to: "/upload", label: "Upload" },
-    { to: "/camera", label: "Camera" },
-    { to: "/history", label: "History" },
-    { to: "/pockethazmapp", label: "Pocket Hazmapp" },
-  ];
-
   return (
     <nav className={`navbar ${isVertical ? "vertical" : ""}`}>
-      {/* Logo */}
+      {/* Logo - Always Available */}
       <Link to="/" className="navbar-logo" onClick={() => setIsDropdownOpen(false)}>
         <img src={BradyLogo} alt="Brady Corporation Logo" className="navbar-logo-img" />
       </Link>
@@ -65,15 +40,20 @@ const NavBar: React.FC = () => {
       {/* Desktop Navigation */}
       {!isVertical && (
         <div className="navbar-buttons">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={location.pathname === link.to ? "active" : ""}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {/* ✅ Always Show "Home" Button */}
+          {location.pathname !== "/" && (
+            <Link to="/" className="home-link">Home</Link>
+          )}
+
+          {/* ✅ Show other buttons only if NOT on HomePage */}
+          {location.pathname !== "/" && (
+            <>
+              <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""}>Upload</Link>
+              <Link to="/camera" className={location.pathname === "/camera" ? "active" : ""}>Camera</Link>
+              <Link to="/reports" className={location.pathname === "/reports" ? "active" : ""}>Reports</Link>
+              <Link to="/pockethazmapp" className={location.pathname === "/pockethazmapp" ? "active" : ""}>Pocket Hazmapp</Link>
+            </>
+          )}
         </div>
       )}
 
@@ -96,38 +76,35 @@ const NavBar: React.FC = () => {
       {isVertical && (
         <div className="dropdown" ref={dropdownRef}>
           <button 
-            onClick={toggleDropdown} 
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
             className="dropdown-toggle"
             aria-label="Toggle menu"
           >
-            {"☰"}
+            ☰
           </button>
           
           {isDropdownOpen && (
             <div className="dropdown-menu">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={location.pathname === link.to ? "active" : ""}
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              
+              {/* ✅ Always Show "Home" Button in Mobile */}
+              {location.pathname !== "/" && (
+                <Link to="/" className="home-link" onClick={() => setIsDropdownOpen(false)}>Home</Link>
+              )}
+
+              {/* ✅ Show other buttons only if NOT on HomePage */}
+              {location.pathname !== "/" && (
+                <>
+                  <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Upload</Link>
+                  <Link to="/camera" className={location.pathname === "/camera" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Camera</Link>
+                  <Link to="/history" className={location.pathname === "/history" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>History</Link>
+                  <Link to="/pockethazmapp" className={location.pathname === "/pockethazmapp" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Pocket Hazmapp</Link>
+                </>
+              )}
+
               {/* Dark Mode Toggle - Mobile */}
-              <div 
-                className="dark-mode-toggle"
-                onClick={() => setIsDarkMode(!isDarkMode)}
-              >
+              <div className="dark-mode-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
                 <span>Dark Mode</span>
                 <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={isDarkMode}
-                    onChange={() => setIsDarkMode(!isDarkMode)}
-                  />
+                  <input type="checkbox" checked={isDarkMode} onChange={() => setIsDarkMode(!isDarkMode)} />
                   <span className="slider round"></span>
                 </label>
               </div>

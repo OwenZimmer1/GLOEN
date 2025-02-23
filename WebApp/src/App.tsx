@@ -37,7 +37,7 @@ const App: React.FC = () => {
               <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
               <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
               <Route path="/violation" element={<ViolationResults />} />
-              <Route path="/history" element={<HistoryPage history={history} />} />
+              <Route path="/reports" element={<HistoryPage history={history} />} />
               <Route path="/pockethazmapp" element={<PocketHazmapp />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

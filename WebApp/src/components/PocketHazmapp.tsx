@@ -3,7 +3,7 @@ import React from 'react';
 const PocketHazmapp: React.FC = () => {
   return (
     <div>
-      <h1>Pocket Hazmapp Page</h1>
+      <h1> Pocket Hazmapp Coming Soon.... </h1>
     </div>
   );
 };

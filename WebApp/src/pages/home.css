@@ -1,0 +1,81 @@
+/* ✅ Home Page Layout */
+.home-container {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  /* ✅ Button Container - Two Buttons Per Row (Desktop & Tablet) */
+  .home-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Two buttons per row */
+    gap: 16px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* ✅ Large, Rectangular Buttons */
+  .home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    height: 80px; /* ✅ Bigger, more tappable */
+    border: 2px solid var(--border-color);
+  }
+  
+  /* ✅ Light Mode Button Styling */
+  body:not(.dark-mode) .home-button {
+    background-color: var(--button-bg);
+    color: rgb(25, 28, 36); /* ✅ Light Mode Text Color */
+  }
+  
+  /* ✅ Dark Mode Button Styling */
+  body.dark-mode .home-button {
+    background-color: var(--button-bg);
+    color: white; /* ✅ Dark Mode Text Color */
+  }
+  
+  /* ✅ Hover & Active Effects */
+  body:not(.dark-mode) .home-button:hover {
+    background-color: var(--button-hover-bg);
+    transform: scale(1.03);
+  }
+  
+  body.dark-mode .home-button:hover {
+    background-color: var(--button-hover-bg);
+    transform: scale(1.03);
+  }
+  
+  .home-button:active {
+    transform: scale(0.98);
+  }
+  
+  /* ✅ Mobile View - Stack Buttons & Perfect Centering */
+  @media (max-width: 600px) {
+    .home-buttons {
+      grid-template-columns: 1fr; /* ✅ One button per row on smaller screens */
+      max-width: 90%; /* ✅ Keeps buttons within view */
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* ✅ Ensures buttons are centered */
+      justify-content: center;
+    }
+  
+    .home-button {
+      width: 100%; /* ✅ Full width for mobile */
+      max-width: 280px; /* ✅ Prevents buttons from being too wide */
+      height: 70px; /* Slightly smaller height for better fit */
+      font-size: 16px; /* ✅ Adjust font size for smaller screens */
+    }
+  }
+  
