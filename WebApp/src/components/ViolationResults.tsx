@@ -54,9 +54,15 @@ const ViolationResults: React.FC = () => {
 
   const handleViolationTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (latestViolation) {
+      const newViolationType = event.target.value;
+      const newStatus = newViolationType === 'No Violation' 
+        ? 'No Violation Detected' 
+        : 'Violation Detected';
+      
       setLatestViolation({
         ...latestViolation,
-        violationType: event.target.value
+        violationType: newViolationType,
+        status: newStatus
       });
     }
   };
