@@ -1,3 +1,4 @@
+
 // src/App.tsx
 "use client";
 
@@ -8,6 +9,10 @@ import Home from "./pages/Home";
 import ImageUpload from "./components/ImageUpload";
 import Camera from "./components/Camera";
 import PredictionPage from "./pages/Prediction";
+import ViolationResults from './components/ViolationResults';
+import HistoryPage from './pages/HistoryPage';
+import PocketHazmapp from './components/PocketHazmapp';
+import { LoadingStateProvider } from './components/LoadingState';
 
 const App: React.FC = () => {
   // "view" controls which page is shown: "home", "upload", "camera", or "prediction"
@@ -16,6 +21,10 @@ const App: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   // "groundTruth" is optional—for example, it might come from the folder name or user input.
   const [groundTruth, setGroundTruth] = useState<string>("");
+
+const App: React.FC = () => {
+  const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
+  const [history, setHistory] = useState<{ imageUrl: string; report: string }[]>([])
 
   // For responsive layout: detect if the window is vertical
   const [isVertical, setIsVertical] = useState<boolean>(true);
@@ -49,6 +58,29 @@ const App: React.FC = () => {
         )}
       </div>
     </div>
+  const onAddToHistory = (imageUrl: string, report?: string) => {
+    setHistory((prevHistory) => [...prevHistory, { imageUrl, report: report || '' }]);
+  };  
+
+  return (
+    <LoadingStateProvider>
+      <Router>
+        <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
+          <NavBar />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
+              <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
+              <Route path="/violation" element={<ViolationResults />} />
+              <Route path="/reports" element={<HistoryPage history={history} />} />
+              <Route path="/pockethazmapp" element={<PocketHazmapp />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    </LoadingStateProvider>
   );
 };
 

@@ -1,83 +1,116 @@
-import React, { useState, useEffect } from "react";
-import BradyLogo from "../assets/bradyCorpLogo.png";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import BradyLogo from "../assets/bradyLogo.svg";
+import "./NavBar.css";
 
-interface NavBarProps {
-  onViewChange: (view: string) => void;
-}
-
-const NavBar: React.FC<NavBarProps> = ({ onViewChange }) => {
+const NavBar: React.FC = () => {
   const switchViewWidth = 768;
-  const [activeView, setActiveView] = useState("home");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isVertical, setIsVertical] = useState(
-    window.innerWidth <= switchViewWidth
+  const [isVertical, setIsVertical] = useState(window.innerWidth <= switchViewWidth);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    localStorage.getItem("theme") === "dark"
   );
+  const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsVertical(window.innerWidth <= switchViewWidth);
+      if (window.innerWidth > switchViewWidth) {
+        setIsDropdownOpen(false);
+      }
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleViewChange = (view: string) => {
-    setActiveView(view);
-    onViewChange(view);
-    setIsDropdownOpen(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const renderButtons = () => (
-    <>
-      <button
-        className={activeView === "home" ? "active" : ""}
-        onClick={() => handleViewChange("home")}
-      >
-        Home
-      </button>
-      <button
-        className={activeView === "upload" ? "active" : ""}
-        onClick={() => handleViewChange("upload")}
-      >
-        Upload
-      </button>
-      <button
-        className={activeView === "camera" ? "active" : ""}
-        onClick={() => handleViewChange("camera")}
-      >
-        Camera
-      </button>
-      <button
-        className={activeView === "violation" ? "active" : ""}
-        onClick={() => handleViewChange("violation")}
-      >
-        Display Violation
-      </button>
-    </>
-  );
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", isDarkMode);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
 
   return (
     <nav className={`navbar ${isVertical ? "vertical" : ""}`}>
-      <img
-        src={BradyLogo}
-        alt="Brady Corporation Logo"
-        className="navbar-logo"
-      />
-      {isVertical ? (
-        <div className="dropdown">
-          <button onClick={toggleDropdown} className="dropdown-toggle">
-            Menu
-          </button>
-          {isDropdownOpen && (
-            <div className="dropdown-menu">{renderButtons()}</div>
+      {/* Logo - Always Available */}
+      <Link to="/" className="navbar-logo" onClick={() => setIsDropdownOpen(false)}>
+        <img src={BradyLogo} alt="Brady Corporation Logo" className="navbar-logo-img" />
+      </Link>
+
+      {/* Desktop Navigation */}
+      {!isVertical && (
+        <div className="navbar-buttons">
+          {/* ✅ Always Show "Home" Button */}
+          {location.pathname !== "/" && (
+            <Link to="/" className="home-link">Home</Link>
+          )}
+
+          {/* ✅ Show other buttons only if NOT on HomePage */}
+          {location.pathname !== "/" && (
+            <>
+              <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""}>Upload</Link>
+              <Link to="/camera" className={location.pathname === "/camera" ? "active" : ""}>Camera</Link>
+              <Link to="/reports" className={location.pathname === "/reports" ? "active" : ""}>Reports</Link>
+              <Link to="/pockethazmapp" className={location.pathname === "/pockethazmapp" ? "active" : ""}>Pocket Hazmapp</Link>
+            </>
           )}
         </div>
-      ) : (
-        <div className="navbar-buttons">{renderButtons()}</div>
+      )}
+
+      {/* Dark Mode Toggle - Desktop */}
+      {!isVertical && (
+        <div className="dark-mode-toggle">
+          <span>Dark Mode</span>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isDarkMode}
+              onChange={() => setIsDarkMode(!isDarkMode)}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      )}
+
+      {/* Mobile Menu */}
+      {isVertical && (
+        <div className="dropdown" ref={dropdownRef}>
+          <button 
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+            className="dropdown-toggle"
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
+          
+          {isDropdownOpen && (
+            <div className="dropdown-menu">
+              {/* ✅ Always Show "Home" Button in Mobile */}
+              {location.pathname !== "/" && (
+                <Link to="/" className="home-link" onClick={() => setIsDropdownOpen(false)}>Home</Link>
+              )}
+
+              {/* ✅ Show other buttons only if NOT on HomePage */}
+              {location.pathname !== "/" && (
+                <>
+                  <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Upload</Link>
+                  <Link to="/camera" className={location.pathname === "/camera" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Camera</Link>
+                  <Link to="/reports" className={location.pathname === "/reports" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Reports</Link>
+                  <Link to="/pockethazmapp" className={location.pathname === "/pockethazmapp" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Pocket Hazmapp</Link>
+                </>
+              )}
+
+              {/* Dark Mode Toggle - Mobile */}
+              <div className="dark-mode-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
+                <span>Dark Mode</span>
+                <label className="switch">
+                  <input type="checkbox" checked={isDarkMode} onChange={() => setIsDarkMode(!isDarkMode)} />
+                  <span className="slider round"></span>
+                </label>
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </nav>
   );

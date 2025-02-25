@@ -1,27 +1,52 @@
 import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
+import { useNavigate } from "react-router-dom";
+import { useLoadingState } from "./LoadingState";
 
-function CameraComponent() {
+interface CameraProps {
+  onAddToHistory: (imageUrl: string, report?: string) => void;
+}
+
+function CameraComponent({ onAddToHistory }: CameraProps) {
   const webcam = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const { isLoading, setLoading } = useLoadingState(); //Use loading state
 
   const capture = useCallback(() => {
     const imageSrc = webcam.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
     }
-  }, [webcam]);
+  }, []);
 
   const retake = () => {
     setImgSrc(null);
   };
 
+  const upload = async () => {
+    if (imgSrc) {
+      try {
+        setLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 3000)); // Simulated API call
+
+        onAddToHistory(imgSrc);
+        navigate("/violation", { state: { imageUrl: imgSrc } });
+        setImgSrc(null);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   const videoConstraints = {
-    facingMode: 'user'
+    facingMode: "environment",
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center" }} className={isLoading ? "pointer-events-none select-none opacity-50" : ""}>
       <h1>Take a Picture</h1>
       {imgSrc ? (
         <div>
@@ -30,9 +55,11 @@ function CameraComponent() {
             alt="Captured"
             style={{ width: "100%", maxWidth: "400px" }}
           />
-          <div>
-            <button onClick={retake}>Upload Image</button>
-            <button onClick={retake}>Retake Photo</button>
+          <div style={{ marginTop: "10px" }}>
+            <button onClick={upload} disabled={isLoading} style={{ cursor: isLoading ? "not-allowed" : "pointer" }}>
+              {isLoading ? "Uploading..." : "Upload Image"}
+            </button>
+            <button onClick={retake} disabled={isLoading}>Retake Photo</button>
           </div>
         </div>
       ) : (
@@ -49,7 +76,7 @@ function CameraComponent() {
             videoConstraints={videoConstraints}
           />
           <div>
-            <button onClick={capture}>Capture Photo</button>
+            <button onClick={capture} disabled={isLoading}>Capture Photo</button>
           </div>
         </div>
       )}
