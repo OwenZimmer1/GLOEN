@@ -17,6 +17,7 @@ cd WebApp
 npm install
 npm install react-webcam
 npm install react-router-dom
+npm install lucide-react  //for the loading logo
 ```
 
 4. Start the server 

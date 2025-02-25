@@ -6,7 +6,9 @@ import Home from './pages/home';
 import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera';
 import ViolationResults from './components/ViolationResults';
-import HistoryPage from './components/HistoryPage';
+import HistoryPage from './pages/HistoryPage';
+import PocketHazmapp from './components/PocketHazmapp';
+import { LoadingStateProvider } from './components/LoadingState';
 
 const App: React.FC = () => {
   const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
@@ -25,21 +27,24 @@ const App: React.FC = () => {
   };  
 
   return (
-    <Router>
-      <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
-        <NavBar />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
-            <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
-            <Route path="/violation" element={<ViolationResults />} />
-            <Route path="/history" element={<HistoryPage history={history} />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+    <LoadingStateProvider>
+      <Router>
+        <div className={`app-container ${isVertical ? 'vertical' : ''}`}>
+          <NavBar />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
+              <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
+              <Route path="/violation" element={<ViolationResults />} />
+              <Route path="/reports" element={<HistoryPage history={history} />} />
+              <Route path="/pockethazmapp" element={<PocketHazmapp />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </LoadingStateProvider>
   );
 };
 
