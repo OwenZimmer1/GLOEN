@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend/WebApp
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - ml-processor
+    environment:
+      - BLOB_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=gloena;AccountKey=eu7ey3GCykOrnGV466bLUSR2TKjGVYB95C7y2VvJ6aSZg0R5WhgRkHvjpvMKIRd55Mwx9y9ZpbBH+AStpFdrDg==;EndpointSuffix=core.windows.net
+      - BLOB_CONTAINER_NAME=detection-results
+      - ML_SERVICE_URL=http://ml-processor:8001
+    networks:
+      - app-network
+
+  ml-processor:
+    build: ./ml-processor
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./ml-processor:/app
+      - ./ml-processor/models:/app/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - MODEL_PATH=/app/models/yolov8n.pt
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
