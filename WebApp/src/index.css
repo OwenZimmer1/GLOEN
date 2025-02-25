@@ -1,68 +1,280 @@
+/* ✅ Default Light Mode Variables */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: #213547;
+  background-color: #ffffff;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ✅ Variables for Light Mode */
+  --bg-color: #ffffff;
+  --text-color: #213547;
+  --nav-bg-color: #ffffff;
+  --nav-text-color: #19336E;
+  --button-bg: #19336E;
+  --button-text: white;
+  --button-hover-bg: rgba(25, 51, 110, 0.1);
+  --border-color: #e0e0e0;
+  --toggle-bg: #ccc;
+  --toggle-circle: white;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* ✅ Dark Mode Variables */
+.dark-mode {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1f262f; /* Kept your original color */
+
+  /* ✅ Dark Mode Colors */
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --nav-bg-color: #1e1e1e;
+  --nav-text-color: #ffffff;
+  --button-bg: #ffffff;
+  --button-text: #19336E;
+  --button-hover-bg: rgba(255, 255, 255, 0.1);
+  --border-color: #333333;
+  --toggle-bg: #444;
+  --toggle-circle: #ffffff;
 }
 
+/* ✅ Global Styles */
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+/* ✅ Responsive Font Scaling */
+:root {
+  font-size: 16px;
+}
+
+/* ✅ Adjust Font Sizes for Smaller Screens */
+@media (max-width: 1024px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  p {
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
+  .navbar {
+    padding: 10px 12px;
+  }
+
+  .navbar-logo-img {
+    width: 140px;
+    max-width: 50vw;
+  }
+
+  .dropdown-menu {
+    width: 90%;
+    max-width: 250px;
+  }
+
+  .dropdown-menu a {
+    font-size: 1em;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
+
+  p {
+    font-size: 0.95em;
+  }
+
+  button {
+    font-size: 0.85em;
+    padding: 6px 10px;
+  }
+
+  .navbar {
+    padding: 8px 10px;
+  }
+
+  .navbar-logo-img {
+    width: 120px;
+    max-width: 50vw;
+  }
+}
+
+/* ✅ Links */
+a {
+  font-weight: 500;
+  color: var(--nav-text-color);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: rgba(25, 51, 110, 0.8);
+}
+
+/* ✅ Headings */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
 
+/* ✅ Buttons */
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: rgba(25, 51, 110, 0.8);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ✅ Navbar */
+.navbar {
+  background-color: var(--nav-bg-color);
+  color: var(--nav-text-color);
+  padding: 14px 30px;
+  border-bottom: 2px solid var(--border-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ✅ Dropdown Menu - Fix Light Mode Background */
+.dropdown-menu {
+  background-color: var(--bg-color); /* ✅ Now correctly changes in light mode */
+  color: var(--text-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ✅ Dark Mode Toggle */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--nav-text-color);
+}
+
+/* ✅ Dark Mode Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--toggle-bg);
+  transition: 0.4s;
+  border-radius: 22px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 3px;
+  background-color: var(--toggle-circle);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--button-bg);
+}
+
+input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+/* ✅ Mobile Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  a:hover {
-    color: #747bff;
+
+  .navbar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .dropdown {
+    margin-top: 10px;
   }
 }

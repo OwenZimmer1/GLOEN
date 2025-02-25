@@ -1,10 +1,20 @@
-function Home() {
-    return (
-      <div style={{ textAlign: 'center', padding: '20px' }}>
-        <h1>Welcome to Hazmapp</h1>
-        <p>Upload an image to analyze workplace safety violations.</p>
+import { Link } from "react-router-dom";
+import "./Home.css";
+
+const Home: React.FC = () => {
+  return (
+    <div className="home-container">
+      <h1>Welcome to Hazmapp</h1>
+      
+      {/* Navigation Buttons */}
+      <div className="home-buttons">
+        <Link to="/upload" className="home-button">Upload</Link>
+        <Link to="/camera" className="home-button">Camera</Link>
+        <Link to="/Reports" className="home-button">Reports</Link>
+        <Link to="/pockethazmapp" className="home-button">Pocket Hazmapp</Link>
       </div>
-    );
-  }
-  
-  export default Home;
+    </div>
+  );
+};
+
+export default Home;

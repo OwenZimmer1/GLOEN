@@ -1,0 +1,258 @@
+/* ✅ Root variables */
+:root {
+    --nav-bg-color: #ffffff;
+    --nav-text-color: #1f2937;
+    --button-bg: #f3f4f6;
+    --button-text: #1f2937;
+    --border-color: #e5e7eb;
+}
+
+/* ✅ Dark mode */
+body.dark-mode {
+    --nav-bg-color: #171c23c3;
+    --nav-text-color: #f9fafb;
+    --button-bg: #374151;
+    --button-text: #f9fafb;
+    --border-color: #4b5563;
+}
+
+/* ✅ Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
+    padding: 12px 20px;
+    border-bottom: 2px solid var(--border-color);
+    transition: background-color 0.3s, color 0.3s;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Navbar container for center alignment */
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* ✅ Navbar Logo */
+.navbar-logo {
+    margin-right: auto;
+}
+
+.navbar-logo-img {
+    width: 230px;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.navbar-logo-img:hover {
+    opacity: 0.8;
+}
+
+/* ✅ Navbar Buttons */
+.navbar-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.navbar-buttons a {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.navbar-buttons a:hover {
+    background-color: var(--border-color);
+}
+
+.navbar-buttons a.active {
+    background-color: rgba(25, 51, 110, 0.4);
+    color: var(--button-text);
+}
+
+/* ✅ Fix Dark Mode Toggle */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: var(--button-bg);
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 120px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(25, 51, 110, 0.3);
+}
+
+/* ✅ Fix Dark Mode Switch Clickability */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.3s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #1a3663;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* ✅ Fix Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    font-size: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--nav-text-color);
+    padding: 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* ✅ Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--nav-bg-color);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 220px;
+    max-width: 90vw;
+    border: 1px solid var(--border-color);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+/* ✅ Improve Dropdown Buttons */
+.dropdown-menu a {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--border-color);
+}
+
+/* ✅ Fix Dark Mode Toggle in Dropdown */
+.dropdown-menu .dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 16px;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* ✅ Mobile View Fixes */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 16px;
+    }
+
+    .navbar-container {
+        flex-direction: column;
+    }
+
+    .navbar-logo-img {
+        width: 230px;
+    }
+
+    /* ✅ Make Mobile Dropdown Uniform */
+    .dropdown-menu {
+        width: 90vw;
+        max-width: 280px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 8px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .dropdown-menu a {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .dropdown-toggle {
+        font-size: 20px;
+        padding: 8px;
+    }
+}
