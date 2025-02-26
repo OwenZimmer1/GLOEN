@@ -19,21 +19,27 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
     }
   };
 
-  const upload = async () => {
+  const processImage = async () => {
     if (imageSrc) {
       try {
         setLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
-        onAddToHistory(imageSrc); //Adds to history
+        onAddToHistory(imageSrc);
+        console.log("Navigating to ViolationResults with imageUrl:", imageSrc);
         navigate("/violation", { state: { imageUrl: imageSrc } });
+
         setImageSrc(null);
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error processing image:", error);
       } finally {
         setLoading(false);
       }
     }
+  };
+
+  const discardImage = () => {
+    setImageSrc(null);
   };
 
   return (
@@ -41,7 +47,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
       <h1>Upload Your Image</h1>
       <p>Upload an image to check for safety hazards.</p>
       <input type="file" accept="image/*" onChange={handleImageChange} disabled={isLoading} />
-      
+
       {imageSrc && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <img
@@ -55,14 +61,22 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
           />
         </div>
       )}
+
       {imageSrc && (
-        <div style={{ marginTop: "10px", textAlign: "center" }}>
-          <button 
-            onClick={upload}
+        <div style={{ marginTop: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "10px" }}>
+          <button
+            onClick={processImage}
             disabled={isLoading}
             style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
           >
-            {isLoading ? "Uploading..." : "Upload Image"}
+            {isLoading ? "Processing..." : "Process Image"}
+          </button>
+          <button
+            onClick={discardImage}
+            disabled={isLoading}
+            style={{ backgroundColor: "#dc3545", color: "white", cursor: isLoading ? "not-allowed" : "pointer" }}
+          >
+            Cancel
           </button>
         </div>
       )}

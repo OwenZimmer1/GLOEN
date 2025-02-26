@@ -8,13 +8,13 @@ interface CameraProps {
 }
 
 function CameraComponent({ onAddToHistory }: CameraProps) {
-  const webcam = useRef<Webcam>(null);
+  const webcamRef = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { isLoading, setLoading } = useLoadingState(); //Use loading state
+  const { isLoading, setLoading } = useLoadingState();
 
   const capture = useCallback(() => {
-    const imageSrc = webcam.current?.getScreenshot();
+    const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
     }
@@ -31,7 +31,9 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
         await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
         onAddToHistory(imgSrc);
+        console.log("Navigating to ViolationResults with imageUrl:", imgSrc);
         navigate("/violation", { state: { imageUrl: imgSrc } });
+
         setImgSrc(null);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -64,7 +66,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
               disabled={isLoading}
               style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
             >
-              {isLoading ? "Uploading..." : "Upload Image"}
+              {isLoading ? "Processing..." : "Process Image"}
             </button>
             <button onClick={retake} disabled={isLoading}>
               Retake Photo
@@ -75,7 +77,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
         <div>
           <Webcam
             audio={false}
-            ref={webcam}
+            ref={webcamRef}
             screenshotFormat="image/jpeg"
             style={{
               width: "100%",
