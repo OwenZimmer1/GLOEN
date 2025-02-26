@@ -28,7 +28,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     if (imgSrc) {
       try {
         setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Simulated API call
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
         onAddToHistory(imgSrc);
         navigate("/violation", { state: { imageUrl: imgSrc } });
@@ -46,7 +46,10 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
   };
 
   return (
-    <div style={{ textAlign: "center" }} className={isLoading ? "pointer-events-none select-none opacity-50" : ""}>
+    <div
+      style={{ textAlign: "center" }}
+      className={isLoading ? "pointer-events-none select-none opacity-50" : ""}
+    >
       <h1>Take a Picture</h1>
       {imgSrc ? (
         <div>
@@ -56,10 +59,16 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             style={{ width: "100%", maxWidth: "400px" }}
           />
           <div style={{ marginTop: "10px" }}>
-            <button onClick={upload} disabled={isLoading} style={{ cursor: isLoading ? "not-allowed" : "pointer" }}>
+            <button
+              onClick={upload}
+              disabled={isLoading}
+              style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
+            >
               {isLoading ? "Uploading..." : "Upload Image"}
             </button>
-            <button onClick={retake} disabled={isLoading}>Retake Photo</button>
+            <button onClick={retake} disabled={isLoading}>
+              Retake Photo
+            </button>
           </div>
         </div>
       ) : (
@@ -76,7 +85,9 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             videoConstraints={videoConstraints}
           />
           <div>
-            <button onClick={capture} disabled={isLoading}>Capture Photo</button>
+            <button onClick={capture} disabled={isLoading}>
+              Capture Photo
+            </button>
           </div>
         </div>
       )}
