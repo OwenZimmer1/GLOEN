@@ -1,0 +1,41 @@
+Notes for the backend
+
+Things we need to do:
+
+ - Data Security
+ - Authentication
+ - Error Management
+ - Hosting
+ - Mobile or Web
+ - Source Control
+ - Preprocessing
+ - 
+
+
+Platforms that need to use and how
+	- Azure:
+
+	
+	- .Net
+
+
+	- SQL
+
+
+BIG TAKEAWAYS:
+	- Navigate to results page when done
+	- Error Checking
+	- Timeout when error or confirmation fails
+	- Querying storage
+
+
+Error Handling: (Waiting for backend implementation)
+Image does not display because problem with Blob Storage
+You tried to retrieve image but blob storage failed
+Timeout, file was deleted, file name was changed
+Heavy traffic on the site leading to Timeouts
+Display “ImageNotFound” Icon (default image)
+Try: From Blob 
+Catch Statement: Display “ImageNotFound” Icon
+
+Save that in backend so that next time, it will be “saved” in favorites

@@ -5,7 +5,7 @@ import NavBar from './components/Navbar';
 import Home from './pages/home';
 import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera';
-import ViolationResults from './components/ViolationResults';
+import ViolationResults from './pages/ViolationResults';
 import HistoryPage from './pages/HistoryPage';
 import PocketHazmapp from './components/PocketHazmapp';
 import { LoadingStateProvider } from './components/LoadingState';

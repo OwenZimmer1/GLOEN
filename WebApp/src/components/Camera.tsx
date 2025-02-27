@@ -8,13 +8,13 @@ interface CameraProps {
 }
 
 function CameraComponent({ onAddToHistory }: CameraProps) {
-  const webcam = useRef<Webcam>(null);
+  const webcamRef = useRef<Webcam>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { isLoading, setLoading } = useLoadingState(); //Use loading state
+  const { isLoading, setLoading } = useLoadingState();
 
   const capture = useCallback(() => {
-    const imageSrc = webcam.current?.getScreenshot();
+    const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
       setImgSrc(imageSrc);
     }
@@ -24,17 +24,35 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     setImgSrc(null);
   };
 
-  const upload = async () => {
+  const processImage = async () => {
     if (imgSrc) {
       try {
         setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Simulated API call
 
-        onAddToHistory(imgSrc);
-        navigate("/violation", { state: { imageUrl: imgSrc } });
+        // ✅ Convert base64 image to file format for backend
+        const blob = await fetch(imgSrc).then((res) => res.blob());
+        const formData = new FormData();
+        formData.append("image", blob, "captured.jpg");
+
+        // ✅ Send to backend
+        const response = await fetch("http://localhost:5000/process-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log("Backend response:", data);
+
+        if (data.status === "success") {
+          onAddToHistory(imgSrc);
+          navigate("/violation", { state: { imageUrl: imgSrc, processedData: data.violations } });
+        } else {
+          console.error("Processing failed:", data.message);
+        }
+
         setImgSrc(null);
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error processing image:", error);
       } finally {
         setLoading(false);
       }
@@ -46,7 +64,10 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
   };
 
   return (
-    <div style={{ textAlign: "center" }} className={isLoading ? "pointer-events-none select-none opacity-50" : ""}>
+    <div
+      style={{ textAlign: "center" }}
+      className={isLoading ? "pointer-events-none select-none opacity-50" : ""}
+    >
       <h1>Take a Picture</h1>
       {imgSrc ? (
         <div>
@@ -55,18 +76,24 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             alt="Captured"
             style={{ width: "100%", maxWidth: "400px" }}
           />
-          <div style={{ marginTop: "10px" }}>
-            <button onClick={upload} disabled={isLoading} style={{ cursor: isLoading ? "not-allowed" : "pointer" }}>
-              {isLoading ? "Uploading..." : "Upload Image"}
+          <div style={{ marginTop: "10px", display: "flex", justifyContent: "center", gap: "10px" }}>
+            <button
+              onClick={processImage}
+              disabled={isLoading}
+              style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
+            >
+              {isLoading ? "Processing..." : "Process Image"}
             </button>
-            <button onClick={retake} disabled={isLoading}>Retake Photo</button>
+            <button onClick={retake} disabled={isLoading} style={{ backgroundColor: "#dc3545", color: "white" }}>
+              Retake
+            </button>
           </div>
         </div>
       ) : (
         <div>
           <Webcam
             audio={false}
-            ref={webcam}
+            ref={webcamRef}
             screenshotFormat="image/jpeg"
             style={{
               width: "100%",
@@ -76,7 +103,9 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             videoConstraints={videoConstraints}
           />
           <div>
-            <button onClick={capture} disabled={isLoading}>Capture Photo</button>
+            <button onClick={capture} disabled={isLoading}>
+              Capture Photo
+            </button>
           </div>
         </div>
       )}
