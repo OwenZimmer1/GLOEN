@@ -19,21 +19,42 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
     }
   };
 
-  const upload = async () => {
+  const processImage = async () => {
     if (imageSrc) {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
-        onAddToHistory(imageSrc); //Adds to history
-        navigate("/violation", { state: { imageUrl: imageSrc } });
-        setImageSrc(null);
+        // ✅ Convert the image to a Blob for sending to the backend
+        const response = await fetch(imageSrc);
+        const blob = await response.blob();
+        const formData = new FormData();
+        formData.append("image", blob, "image.jpg");
+
+        // ✅ Send image to Flask backend
+        const res = await fetch("http://localhost:5000/process-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        // ✅ If successful, navigate to ViolationResults with processed data
+        if (data.status === "success") {
+          onAddToHistory(imageSrc);
+          navigate("/violation", { state: { imageUrl: imageSrc, processedData: data.violations } });
+        } else {
+          console.error("Error processing image:", data.message);
+        }
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error:", error);
       } finally {
         setLoading(false);
       }
     }
+  };
+
+  const discardImage = () => {
+    setImageSrc(null);
   };
 
   return (
@@ -41,7 +62,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
       <h1>Upload Your Image</h1>
       <p>Upload an image to check for safety hazards.</p>
       <input type="file" accept="image/*" onChange={handleImageChange} disabled={isLoading} />
-      
+
       {imageSrc && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <img
@@ -55,14 +76,22 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
           />
         </div>
       )}
+
       {imageSrc && (
-        <div style={{ marginTop: "10px", textAlign: "center" }}>
-          <button 
-            onClick={upload}
+        <div style={{ marginTop: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "10px" }}>
+          <button
+            onClick={processImage}
             disabled={isLoading}
             style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
           >
-            {isLoading ? "Uploading..." : "Upload Image"}
+            {isLoading ? "Processing..." : "Process Image"}
+          </button>
+          <button
+            onClick={discardImage}
+            disabled={isLoading}
+            style={{ backgroundColor: "#dc3545", color: "white", cursor: isLoading ? "not-allowed" : "pointer" }}
+          >
+            Cancel
           </button>
         </div>
       )}

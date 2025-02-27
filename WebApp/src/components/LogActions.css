@@ -1,0 +1,79 @@
+/* ✅ Log Actions Container */
+.log-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+/* ✅ General Button Styling */
+.log-actions button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.3s;
+    border: 2px solid var(--border-color);
+}
+
+/* ✅ Save, Share, Print Buttons */
+.log-actions button:not(.flag-button) {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.log-actions button:not(.flag-button):hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* ✅ Flag Button - Always Red */
+.flag-button {
+    background-color: #dc3545;
+    color: white;
+    border: 2px solid #b02a37;
+}
+
+.flag-button:hover {
+    background-color: #b02a37;
+}
+
+/* ✅ If Already Flagged */
+.flag-button.flagged {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* ✅ Flagging Section (Reason Input) */
+.flagging-section {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+/* ✅ Flag Reason Textarea */
+.flagging-section textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ✅ Submit Flag Button */
+.flag-submit {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.flag-submit:hover {
+    background-color: var(--button-hover-bg);
+}
