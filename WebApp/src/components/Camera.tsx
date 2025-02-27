@@ -24,19 +24,35 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     setImgSrc(null);
   };
 
-  const upload = async () => {
+  const processImage = async () => {
     if (imgSrc) {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
-        onAddToHistory(imgSrc);
-        console.log("Navigating to ViolationResults with imageUrl:", imgSrc);
-        navigate("/violation", { state: { imageUrl: imgSrc } });
+        // ✅ Convert base64 image to file format for backend
+        const blob = await fetch(imgSrc).then((res) => res.blob());
+        const formData = new FormData();
+        formData.append("image", blob, "captured.jpg");
+
+        // ✅ Send to backend
+        const response = await fetch("http://localhost:5000/process-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log("Backend response:", data);
+
+        if (data.status === "success") {
+          onAddToHistory(imgSrc);
+          navigate("/violation", { state: { imageUrl: imgSrc, processedData: data.violations } });
+        } else {
+          console.error("Processing failed:", data.message);
+        }
 
         setImgSrc(null);
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error processing image:", error);
       } finally {
         setLoading(false);
       }
@@ -60,16 +76,16 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             alt="Captured"
             style={{ width: "100%", maxWidth: "400px" }}
           />
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: "10px", display: "flex", justifyContent: "center", gap: "10px" }}>
             <button
-              onClick={upload}
+              onClick={processImage}
               disabled={isLoading}
               style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
             >
               {isLoading ? "Processing..." : "Process Image"}
             </button>
-            <button onClick={retake} disabled={isLoading}>
-              Retake Photo
+            <button onClick={retake} disabled={isLoading} style={{ backgroundColor: "#dc3545", color: "white" }}>
+              Retake
             </button>
           </div>
         </div>

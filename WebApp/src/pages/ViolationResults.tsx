@@ -19,25 +19,39 @@ const ViolationResults: React.FC = () => {
   const processedData = location.state?.processedData;
   const printRef = useRef<HTMLDivElement>(null);
 
-  const violationTypes = [
-    "ANSI A13-1",
-    "ANSI Z358-1",
-    "No Violation",
-    "OSHA 1910-157(c)(1)",
-    "OSHA 1910-303(e)(1)",
-    "OSHA 1910-303(g)(1)",
-    "OSHA 1910-37(a)(3)",
-  ];
+  // ✅ Map class IDs to their regulation names
+  const violationMap: Record<number, string> = {
+    0: "ANSI A13-1",
+    1: "ANSI Z358-1",
+    2: "OSHA 1910-157(c)(1)",
+    3: "OSHA 1910-303(e)(1)",
+    4: "OSHA 1910-303(g)(1)",
+    5: "OSHA 1910-37(a)(3)",
+    6: "No Violation",
+  };
+
+  const violationTypes = Object.values(violationMap);
 
   useEffect(() => {
-    setLatestViolation(
-      processedData || {
+    if (processedData && processedData.length > 0) {
+      const firstViolation = processedData[0]; // ✅ Get first detected violation
+      const classId = firstViolation?.class_id ?? -1; // Get class ID or default to -1
+      const violationType = violationMap[classId] || "Unknown"; // ✅ Convert ID to regulation
+
+      setLatestViolation({
+        imageName: "Uploaded Image",
+        violationType: violationType, // ✅ Show regulation name instead of number
+        status: classId === 6 ? "No Violation Detected" : "Violation Detected",
+        timestamp: new Date().toLocaleString(),
+      });
+    } else {
+      setLatestViolation({
         imageName: "Uploaded Image",
         violationType: "Unknown",
         status: "No Data",
         timestamp: new Date().toLocaleString(),
-      }
-    );
+      });
+    }
   }, [processedData]);
 
   const handleGoBack = () => navigate(-1);

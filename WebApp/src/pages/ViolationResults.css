@@ -1,35 +1,38 @@
-/* ✅ Violation Results Page Layout */
+/* ✅ Violation Results Page Layout */ 
 .violation-page {
     padding: 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--bg-color); /* ✅ Uses theme background */
-    color: var(--text-color); /* ✅ Uses theme text color */
+    justify-content: center; /* ✅ Ensures everything is centered */
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
 /* ✅ Uploaded Image Styling */
 .violation-image {
-    max-width: 100%;
+    max-width: 90%;
     max-height: 400px;
     margin-bottom: 20px;
     border-radius: 8px;
     object-fit: contain;
-    border: 2px solid var(--border-color); /* ✅ Matches global border style */
+    border: 2px solid var(--border-color);
 }
 
 /* ✅ Violation Report Container */
 .violation-details {
     width: 100%;
     max-width: 600px;
-    background-color: var(--nav-bg-color); /* ✅ Matches navbar background */
+    background-color: var(--nav-bg-color);
     color: var(--text-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin-top: 10px; /* ✅ Prevents overlap with image */
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -37,7 +40,7 @@
 .violation-details h2 {
     margin-top: 0;
     font-size: 22px;
-    color: var(--nav-text-color); /* ✅ Matches navbar text */
+    color: var(--nav-text-color);
 }
 
 /* ✅ Violation Select Dropdown */
@@ -58,6 +61,7 @@
     margin-top: 15px;
     display: flex;
     gap: 10px;
+    justify-content: center; /* ✅ Ensures buttons are centered */
 }
 
 /* ✅ Buttons Styling */
@@ -109,10 +113,15 @@
     color: var(--button-text);
 }
 
-/* ✅ Responsive Design */
+/* ✅ Responsive Fixes */
 @media (max-width: 768px) {
     .violation-details {
         width: 90%;
+    }
+
+    .violation-buttons {
+        flex-wrap: wrap; /* ✅ Prevents buttons from breaking layout */
+        justify-content: center;
     }
 
     .violation-select {

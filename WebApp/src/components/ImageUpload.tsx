@@ -23,15 +23,30 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
     if (imageSrc) {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulated API call
 
-        onAddToHistory(imageSrc);
-        console.log("Navigating to ViolationResults with imageUrl:", imageSrc);
-        navigate("/violation", { state: { imageUrl: imageSrc } });
+        // ✅ Convert the image to a Blob for sending to the backend
+        const response = await fetch(imageSrc);
+        const blob = await response.blob();
+        const formData = new FormData();
+        formData.append("image", blob, "image.jpg");
 
-        setImageSrc(null);
+        // ✅ Send image to Flask backend
+        const res = await fetch("http://localhost:5000/process-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        // ✅ If successful, navigate to ViolationResults with processed data
+        if (data.status === "success") {
+          onAddToHistory(imageSrc);
+          navigate("/violation", { state: { imageUrl: imageSrc, processedData: data.violations } });
+        } else {
+          console.error("Error processing image:", data.message);
+        }
       } catch (error) {
-        console.error("Error processing image:", error);
+        console.error("Error:", error);
       } finally {
         setLoading(false);
       }
