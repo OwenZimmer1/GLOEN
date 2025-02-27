@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/camera.tsx","./src/components/contactus.tsx","./src/components/historypage.tsx","./src/components/imageupload.tsx","./src/components/logactions.tsx","./src/components/navbar.tsx","./src/components/regulationslist.tsx","./src/components/violationresults.tsx","./src/pages/home.tsx"],"version":"5.7.3"}
