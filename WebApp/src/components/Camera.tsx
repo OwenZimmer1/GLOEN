@@ -2,9 +2,14 @@ import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
+import { Violation } from "../pages/ViolationResults"; 
 
 interface CameraProps {
-  onAddToHistory: (imageUrl: string, report?: string) => void;
+  onAddToHistory: (
+    imageUrl: string,
+    report: string,
+    processedData: Violation[]
+  ) => void;
 }
 
 function CameraComponent({ onAddToHistory }: CameraProps) {
@@ -44,10 +49,19 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
         console.log("Backend response:", data);
 
         if (data.status === "success") {
-          onAddToHistory(imgSrc);
-          navigate("/violation", { state: { imageUrl: imgSrc, processedData: data.violations } });
-        } else {
-          console.error("Processing failed:", data.message);
+          const report = data.violations
+            .map(
+              (v: Violation) =>
+                `${v.class_name} (${Math.round(v.confidence * 100)}%)`
+            )
+            .join(", ");
+
+          // ✅ Pass processedData to history
+          onAddToHistory(imgSrc, report, data.violations);
+
+          navigate("/violation", {
+            state: { imageUrl: imgSrc, processedData: data.violations },
+          });
         }
 
         setImgSrc(null);
@@ -76,7 +90,14 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             alt="Captured"
             style={{ width: "100%", maxWidth: "400px" }}
           />
-          <div style={{ marginTop: "10px", display: "flex", justifyContent: "center", gap: "10px" }}>
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
             <button
               onClick={processImage}
               disabled={isLoading}
@@ -84,7 +105,11 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             >
               {isLoading ? "Processing..." : "Process Image"}
             </button>
-            <button onClick={retake} disabled={isLoading} style={{ backgroundColor: "#dc3545", color: "white" }}>
+            <button
+              onClick={retake}
+              disabled={isLoading}
+              style={{ backgroundColor: "#dc3545", color: "white" }}
+            >
               Retake
             </button>
           </div>

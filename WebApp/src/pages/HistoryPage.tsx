@@ -1,16 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./HistoryPage.css";
+import { Violation } from "../pages/ViolationResults"; 
 
+// In HistoryPage.tsx
 interface HistoryPageProps {
-  history: { imageUrl: string; report: string }[]; // History structure
+  history: { 
+    imageUrl: string; 
+    report: string;
+    processedData: Violation[]; // ✅ Add processedData to history entries
+  }[];
 }
+
 
 const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
   const navigate = useNavigate();
 
-  const handleImageClick = (imageUrl: string, report: string) => {
-    navigate("/violation", { state: { imageUrl, report } });
+  const handleImageClick = (imageUrl: string, report: string, processedData: Violation[]) => {
+    navigate("/violation", { 
+      state: { imageUrl, report, processedData } 
+    });
   };
 
   return (
@@ -22,10 +31,10 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
         <div className="history-grid">
           {[...history].reverse().map((entry, index) => (
             <div 
-              key={history.length - 1 - index} 
-              className="history-entry"
-              onClick={() => handleImageClick(entry.imageUrl, entry.report)}
-            >
+            key={history.length - 1 - index} 
+            className="history-entry"
+            onClick={() => handleImageClick(entry.imageUrl, entry.report, entry.processedData)}
+          >
               <img
                 src={entry.imageUrl}
                 alt={`Captured ${history.length - 1 - index}`}
