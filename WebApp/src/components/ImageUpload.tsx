@@ -1,9 +1,10 @@
 import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
+import { Violation } from "../pages/ViolationResults"; 
 
 interface ImageUploadProps {
-  onAddToHistory: (imageUrl: string, report?: string) => void;
+  onAddToHistory: (imageUrl: string, report: string, processedData: Violation[]) => void;
 }
 
 function ImageUpload({ onAddToHistory }: ImageUploadProps) {
@@ -40,8 +41,17 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
 
         // ✅ If successful, navigate to ViolationResults with processed data
         if (data.status === "success") {
-          onAddToHistory(imageSrc);
-          navigate("/violation", { state: { imageUrl: imageSrc, processedData: data.violations } });
+          // ✅ Generate report string from violations
+          const report = data.violations
+            .map((v: Violation) => `${v.class_name} (${Math.round(v.confidence * 100)}%)`)
+            .join(", ");
+
+          // ✅ Pass report to history
+          onAddToHistory(imageSrc, report, data.violations);
+          
+          navigate("/violation", { 
+            state: { imageUrl: imageSrc, processedData: data.violations } 
+          });
         } else {
           console.error("Error processing image:", data.message);
         }

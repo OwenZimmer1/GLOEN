@@ -9,10 +9,15 @@ import ViolationResults from './pages/ViolationResults';
 import HistoryPage from './pages/HistoryPage';
 import PocketHazmapp from './components/PocketHazmapp';
 import { LoadingStateProvider } from './components/LoadingState';
+import { Violation } from './pages/ViolationResults';
 
 const App: React.FC = () => {
   const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
-  const [history, setHistory] = useState<{ imageUrl: string; report: string }[]>([]);
+  const [history, setHistory] = useState<{ 
+    imageUrl: string; 
+    report: string; 
+    processedData: Violation[] // ✅ Made required
+  }[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,9 +27,13 @@ const App: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const onAddToHistory = (imageUrl: string, report?: string) => {
-    setHistory((prevHistory) => [...prevHistory, { imageUrl, report: report || '' }]);
-  };  
+  const onAddToHistory = (imageUrl: string, report?: string, processedData?: Violation[]) => {
+    setHistory((prevHistory) => [...prevHistory, { 
+      imageUrl, 
+      report: report || '', 
+      processedData: processedData || [] // ✅ Default to empty array if not provided
+    }]);
+  };
 
   return (
     <LoadingStateProvider>
@@ -34,8 +43,14 @@ const App: React.FC = () => {
           <div className="content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/upload" element={<ImageUpload onAddToHistory={onAddToHistory} />} />
-              <Route path="/camera" element={<Camera onAddToHistory={onAddToHistory} />} />
+              <Route 
+                path="/upload" 
+                element={<ImageUpload onAddToHistory={onAddToHistory} />} 
+              />
+              <Route 
+                path="/camera" 
+                element={<Camera onAddToHistory={onAddToHistory} />} 
+              />
               <Route path="/violation" element={<ViolationResults />} />
               <Route path="/reports" element={<HistoryPage history={history} />} />
               <Route path="/pockethazmapp" element={<PocketHazmapp />} />
