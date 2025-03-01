@@ -1,141 +1,177 @@
-/* ✅ Violation Results Page Layout */ 
+/* ✅ Violation Results Page Layout */
 .violation-page {
-    padding: 20px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* ✅ Ensures everything is centered */
-    text-align: center;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  padding: 20px;
 }
 
-/* ✅ Uploaded Image Styling */
+/* ✅ Centered Content Box */
+.violation-content {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ✅ Uploaded Image Styling - Properly Sized */
 .violation-image {
-    max-width: 90%;
-    max-height: 400px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    object-fit: contain;
-    border: 2px solid var(--border-color);
+  width: auto;
+  max-width: 500px;
+  max-height: 350px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  object-fit: contain;
+  border: 2px solid var(--border-color);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ Violation Report Container */
+/* ✅ Violation Report Box - Ensures Proper Alignment */
 .violation-details {
-    width: 100%;
-    max-width: 600px;
-    background-color: var(--nav-bg-color);
-    color: var(--text-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 10px; /* ✅ Prevents overlap with image */
-    transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--nav-bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* ✅ Title */
 .violation-details h2 {
-    margin-top: 0;
-    font-size: 22px;
-    color: var(--nav-text-color);
+  margin-top: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--nav-text-color);
 }
 
-/* ✅ Violation Select Dropdown */
-.violation-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 10px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+/* ✅ Violation List */
+.violation-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
-/* ✅ Buttons Container */
+/* ✅ Buttons Section (Now Aligns with Report Box) */
 .violation-buttons {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-    justify-content: center; /* ✅ Ensures buttons are centered */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 600px;
 }
 
-/* ✅ Buttons Styling */
+/* ✅ Standard Button Styling */
 .violation-buttons button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    transition: background-color 0.2s ease-in-out, color 0.3s;
-    border: 2px solid var(--border-color);
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid var(--border-color);
+  min-width: 120px; /* ✅ Other buttons are smaller */
+  max-width: 160px;
 }
 
 /* ✅ Hover Effects */
 .violation-buttons button:hover {
-    background-color: var(--button-hover-bg);
+  background: var(--button-hover-bg);
+  transform: scale(1.05);
 }
 
-/* ✅ Edit/Done Button */
-.violation-buttons button:last-child {
-    background-color: var(--nav-text-color);
-    color: var(--bg-color);
+/* ✅ Go Back Button - Now Full Width */
+.violation-buttons .go-back {
+  width: 100%; /* ✅ Full-width button */
+  max-width: 600px;
+  background: var(--nav-text-color);
+  color: var(--bg-color);
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
 }
 
-.violation-buttons button:last-child:hover {
-    background-color: rgba(25, 51, 110, 0.8);
+.violation-buttons .go-back:hover {
+  background: rgba(25, 51, 110, 0.85);
 }
 
-/* ✅ Dark Mode Support */
-.dark-mode .violation-page {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+/* ✅ Log Actions Section (Now Aligned Properly) */
+.log-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  flex-wrap: wrap;
 }
 
-.dark-mode .violation-details {
-    background-color: var(--nav-bg-color);
-    color: var(--text-color);
+/* ✅ Log Actions Button Styling */
+.log-actions button {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid var(--border-color);
+  min-width: 120px;
+  max-width: 160px;
 }
 
-.dark-mode .violation-select {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+.log-actions button:hover {
+  background: var(--button-hover-bg);
+  transform: scale(1.05);
 }
 
-.dark-mode .violation-buttons button {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-}
-
-/* ✅ Responsive Fixes */
+/* ✅ Responsive Design */
 @media (max-width: 768px) {
-    .violation-details {
-        width: 90%;
-    }
+  .violation-content {
+    width: 90%;
+  }
 
-    .violation-buttons {
-        flex-wrap: wrap; /* ✅ Prevents buttons from breaking layout */
-        justify-content: center;
-    }
+  .violation-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+  }
 
-    .violation-select {
-        font-size: 14px;
-    }
+  .violation-buttons button {
+    width: auto;
+    min-width: 100px;
+  }
 }
 
 @media (max-width: 480px) {
-    .violation-buttons {
-        flex-direction: column;
-        gap: 5px;
-    }
+  .violation-buttons {
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+  }
 
-    .violation-buttons button {
-        width: 100%;
-    }
+  .violation-buttons button {
+    width: 100%;
+  }
+
+  .go-back {
+    width: 100%;
+  }
 }

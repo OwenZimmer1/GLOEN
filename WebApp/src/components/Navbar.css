@@ -222,27 +222,44 @@ input:checked + .slider:before {
     font-size: 14px;
 }
 
-/* ✅ Mobile View Fixes */
+/* ✅ Minimal Mobile View Fixes */
 @media (max-width: 768px) {
     .navbar {
         padding: 12px 16px;
+        flex-direction: column;
     }
 
     .navbar-container {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .navbar-logo {
+        margin-bottom: 8px;
     }
 
     .navbar-logo-img {
-        width: 230px;
+        width: 200px; /* ✅ Slightly smaller to fit better on mobile */
+    }
+
+    .navbar-buttons {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .navbar-buttons a {
+        width: 90%;
+        text-align: center;
+        padding: 12px;
     }
 
     /* ✅ Make Mobile Dropdown Uniform */
     .dropdown-menu {
-        width: 90vw;
-        max-width: 280px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 8px;
+        width: 92vw;
+        max-width: 300px;
         border-top: 1px solid var(--border-color);
     }
 

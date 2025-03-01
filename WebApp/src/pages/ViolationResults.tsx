@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import LogActions from "../components/LogActions";
+import ViolationDetails from "./ViolationDetails"; 
 import "./ViolationResults.css";
 
 export interface Violation {
@@ -11,6 +12,7 @@ export interface Violation {
 
 const ViolationResults: React.FC = () => {
   const [violations, setViolations] = useState<Violation[]>([]);
+  const [selectedViolation, setSelectedViolation] = useState<Violation | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const imageUrl = location.state?.imageUrl;
@@ -47,33 +49,51 @@ const ViolationResults: React.FC = () => {
     }
   };
 
+  const handleViolationClick = (violation: Violation) => {
+    setSelectedViolation(violation);
+  };
+
   return (
     <div className="violation-page">
-      <div ref={printRef}>
-        {imageUrl && <img src={imageUrl} alt="Uploaded" className="violation-image" />}
+      {selectedViolation ? (
+        <ViolationDetails violation={selectedViolation} onClose={() => setSelectedViolation(null)} />
+      ) : (
+        <>
+          <div ref={printRef} className="violation-content">
+            {imageUrl && <img src={imageUrl} alt="Uploaded" className="violation-image" />}
 
-        {violations.length > 0 ? (
-          <div className="violation-details">
-            <h2>Violation Report</h2>
-            <ul className="violation-list">
-              {violations.map((violation, index) => (
-                <li key={index} className="violation-item">
-                  <strong>{violation.class_name}</strong> (Confidence: {Math.round(violation.confidence * 100)}%)
-                </li>
-              ))}
-            </ul>
+            {violations.length > 0 ? (
+              <div className="violation-details">
+                <h2>Violation Report</h2>
+                <div className="violation-list">
+                  {violations.map((violation, index) => (
+                    <button
+                      key={index}
+                      className="violation-item"
+                      onClick={() => handleViolationClick(violation)}
+                    >
+                      <strong>{violation.class_name}</strong>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p>No violation detected. Please upload or take a picture to check for violations.</p>
+            )}
           </div>
-        ) : (
-          <p>No violation detected. Please upload or take a picture to check for violations.</p>
-        )}
-      </div>
 
-      <div className="violation-buttons">
-        <button onClick={handleGoBack}>Go Back</button>
-      </div>
-
-      {/* ✅ LogActions handles Save, Share, Print, and Flag actions */}
-      {imageUrl && <LogActions imageUrl={imageUrl} violationType={violations.map(v => v.class_name).join(", ")} onPrint={handlePrint} />}
+          <div className="violation-buttons">
+            {imageUrl && (
+              <LogActions
+                imageUrl={imageUrl}
+                violationType={violations.map((v) => v.class_name).join(", ")}
+                onPrint={handlePrint}
+              />
+            )}
+            <button className="go-back" onClick={handleGoBack}>Go Back</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
