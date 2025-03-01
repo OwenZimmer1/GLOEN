@@ -5,8 +5,6 @@
 ## How to run the WebApp
 
 1. Open a terminal 
-git clone https://github.com/Dally101/GLOEN.git
-
 2. Navigate to the web app directory using this command 
 
 ```sh
@@ -19,7 +17,7 @@ cd WebApp
 npm install
 npm install react-webcam
 npm install react-router-dom
-npm install lucide-react  //for the loading logo
+npm install lucide-react  
 ```
 
 4. Start the server 

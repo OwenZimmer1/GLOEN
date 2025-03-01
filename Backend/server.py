@@ -8,13 +8,24 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # ✅ Load the YOLOv8 model
-MODEL_PATH = "models/best.pt"  # Ensure this path is correct
-model = YOLO(MODEL_PATH)  # Load YOLOv8 model
+MODEL_PATH = "models/best.pt"
+model = YOLO(MODEL_PATH)
+
+# ✅ Define class names (ensure these match your trained model)
+class_names = [
+    "ANSI A13-1",
+    "ANSI Z358-1",
+    "OSHA 1910-157(c)(1)",
+    "OSHA 1910-303(e)(1)",
+    "OSHA 1910-303(g)(1)",
+    "OSHA 1910-37(a)(3)",
+    "No Violation"  # Last index (6)
+]
 
 @app.route("/process-image", methods=["POST"])
 def process_image():
     try:
-        # Get the image from the request
+        # Get uploaded image
         file = request.files.get("image")
         if not file:
             return jsonify({"status": "error", "message": "No image uploaded"}), 400
@@ -25,26 +36,45 @@ def process_image():
         if image is None:
             return jsonify({"status": "error", "message": "Invalid image format"}), 400
 
-        # Preprocess image (Resize to 640x640 to match YOLO input)
+        # Resize image
         image_resized = cv2.resize(image, (640, 640))
 
-        # Run the image through the YOLO model
-        results = model(image_resized)
+        # ✅ Run YOLO model with proper prediction
+        results = model.predict(source=image_resized, verbose=False)
+        result = results[0].cpu()
 
-        # Extract detected violations
-        violations = []
-        for result in results:
-            probs = result.probs.data.tolist()  # YOLOv8 Classification Outputs
-            class_id = int(np.argmax(probs))  # Get the most likely class
-            confidence = round(max(probs), 2)  # Get the highest confidence score
+        # ✅ Extract multi-label classification probabilities
+        probs = result.probs.data.cpu().numpy().flatten().tolist()
 
-            violations.append({
-                "class_id": class_id,
-                "confidence": confidence
-            })
+        # ✅ Debugging: Print raw probabilities
+        print("\n📢 Model Probabilities:", probs)
 
-        # Return the processed violation data
-        return jsonify({"status": "success", "violations": violations})
+        # ✅ Select ALL violations above confidence threshold
+        confidence_threshold = 0.14  # Lowered to detect more violations
+        violations_detected = [
+            {
+                "class_id": i,
+                "class_name": class_names[i],
+                "confidence": round(prob, 2)  # Only round, no extra multiplication
+            }
+            for i, prob in enumerate(probs[:-1]) if prob > confidence_threshold  # Exclude "No Violation"
+        ]
+
+        # ✅ Only return "No Violation" if its confidence is above 50%
+        no_violation_confidence = round(probs[6], 2)
+        if not violations_detected and no_violation_confidence > 0.5:
+            violations_detected = [{
+                "class_id": 6,  # "No Violation" is index 6
+                "class_name": "No Violation",
+                "confidence": no_violation_confidence
+            }]
+
+        # ✅ Sort violations by confidence (highest first)
+        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
+
+        print("✅ Final Predictions:", violations_detected)
+
+        return jsonify({"status": "success", "violations": violations_detected})
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
