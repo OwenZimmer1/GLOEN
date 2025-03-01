@@ -100,17 +100,17 @@
 .violation-buttons .go-back {
   width: 100%; /* ✅ Full-width button */
   max-width: 600px;
-  background: var(--nav-text-color);
-  color: var(--bg-color);
+  /* background: var(--nav-text-color); */
+  /* color: var(--bg-color); */
   padding: 12px 18px;
   font-size: 16px;
   font-weight: 700;
   border-radius: 8px;
 }
 
-.violation-buttons .go-back:hover {
+/* .violation-buttons .go-back:hover {
   background: rgba(25, 51, 110, 0.85);
-}
+} */
 
 /* ✅ Log Actions Section (Now Aligned Properly) */
 .log-actions {
