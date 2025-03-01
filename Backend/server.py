@@ -8,65 +8,73 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # ✅ Load the YOLOv8 model
-MODEL_PATH = "models/best.pt"  # Ensure this path is correct
-model = YOLO(MODEL_PATH)  # Load YOLOv8 model
+MODEL_PATH = "models/best.pt"
+model = YOLO(MODEL_PATH)
 
-# ✅ Class ID to Regulation Name Mapping
-violation_map = {
-    0: "ANSI A13-1",
-    1: "ANSI Z358-1",
-    2: "OSHA 1910-157(c)(1)",
-    3: "OSHA 1910-303(e)(1)",
-    4: "OSHA 1910-303(g)(1)",
-    5: "OSHA 1910-37(a)(3)",
-    6: "No Violation"
-}
+# ✅ Define class names (ensure these match your trained model)
+class_names = [
+    "ANSI A13-1",
+    "ANSI Z358-1",
+    "OSHA 1910-157(c)(1)",
+    "OSHA 1910-303(e)(1)",
+    "OSHA 1910-303(g)(1)",
+    "OSHA 1910-37(a)(3)",
+    "No Violation"  # Last index (6)
+]
 
 @app.route("/process-image", methods=["POST"])
 def process_image():
     try:
-        # ✅ Get the image from the request
+        # Get uploaded image
         file = request.files.get("image")
         if not file:
             return jsonify({"status": "error", "message": "No image uploaded"}), 400
 
-        # ✅ Convert image to NumPy array and decode
+        # Convert image to NumPy array and decode
         image_np = np.frombuffer(file.read(), np.uint8)
         image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
         if image is None:
             return jsonify({"status": "error", "message": "Invalid image format"}), 400
 
-        # ✅ Resize image to match YOLO input
+        # Resize image
         image_resized = cv2.resize(image, (640, 640))
 
-        # ✅ Run the image through the YOLO model
-        results = model(image_resized)
+        # ✅ Run YOLO model with proper prediction
+        results = model.predict(source=image_resized, verbose=False)
+        result = results[0].cpu()
 
-        # ✅ Extract detected violations
-        threshold = 0.3  # Confidence threshold for valid violations
-        violations = []
+        # ✅ Extract multi-label classification probabilities
+        probs = result.probs.data.cpu().numpy().flatten().tolist()
 
-        for result in results:
-            probs = result.probs.data.tolist()  # YOLOv8 Classification Outputs
-            
-            for i, prob in enumerate(probs):
-                if prob >= threshold:  # Only include labels with confidence above threshold
-                    violations.append({
-                        "class_id": i,
-                        "class_name": violation_map.get(i, "Unknown"),  # Convert to readable label
-                        "confidence": round(prob, 2)
-                    })
+        # ✅ Debugging: Print raw probabilities
+        print("\n📢 Model Probabilities:", probs)
 
-        # ✅ If no violations detected, return "No Violation"
-        if not violations:
-            violations.append({
-                "class_id": 6,
+        # ✅ Select ALL violations above confidence threshold
+        confidence_threshold = 0.14  # Lowered to detect more violations
+        violations_detected = [
+            {
+                "class_id": i,
+                "class_name": class_names[i],
+                "confidence": round(prob, 2)  # Only round, no extra multiplication
+            }
+            for i, prob in enumerate(probs[:-1]) if prob > confidence_threshold  # Exclude "No Violation"
+        ]
+
+        # ✅ Only return "No Violation" if its confidence is above 50%
+        no_violation_confidence = round(probs[6], 2)
+        if not violations_detected and no_violation_confidence > 0.5:
+            violations_detected = [{
+                "class_id": 6,  # "No Violation" is index 6
                 "class_name": "No Violation",
-                "confidence": 1.0  # Default to 100% confidence for no violation
-            })
+                "confidence": no_violation_confidence
+            }]
 
-        # ✅ Return the processed violation data
-        return jsonify({"status": "success", "violations": violations})
+        # ✅ Sort violations by confidence (highest first)
+        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
+
+        print("✅ Final Predictions:", violations_detected)
+
+        return jsonify({"status": "success", "violations": violations_detected})
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500

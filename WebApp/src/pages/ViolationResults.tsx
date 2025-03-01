@@ -20,9 +20,8 @@ const ViolationResults: React.FC = () => {
   useEffect(() => {
     if (processedData && processedData.length > 0) {
       setViolations(processedData);
-    } 
-    else {
-      setViolations([{ class_id: 6, class_name: "No Violation", confidence: 1.0 }]); // Default to "No Violation"
+    } else {
+      setViolations([{ class_id: 6, class_name: "No Violation", confidence: 1.0 }]);
     }
   }, [processedData]);
 
