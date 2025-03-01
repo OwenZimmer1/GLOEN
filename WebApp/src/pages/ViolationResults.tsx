@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import LogActions from "../components/LogActions";
 import "./ViolationResults.css";
 
-interface Violation {
+export interface Violation {
   class_id: number;
   class_name: string;
   confidence: number;
@@ -14,14 +14,14 @@ const ViolationResults: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const imageUrl = location.state?.imageUrl;
-  const processedData = location.state?.processedData;
   const printRef = useRef<HTMLDivElement>(null);
+  const processedData = location.state?.processedData as Violation[] | undefined;
 
   useEffect(() => {
     if (processedData && processedData.length > 0) {
-      setViolations(processedData); // ✅ Store all detected violations
+      setViolations(processedData);
     } else {
-      setViolations([{ class_id: 6, class_name: "No Violation", confidence: 1.0 }]); // Default to "No Violation"
+      setViolations([{ class_id: 6, class_name: "No Violation", confidence: 1.0 }]);
     }
   }, [processedData]);
 
