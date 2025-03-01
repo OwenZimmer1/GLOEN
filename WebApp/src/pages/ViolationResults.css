@@ -1,7 +1,6 @@
 /* ✅ Violation Results Page Layout */ 
 .violation-page {
-    padding: 20px;
-    min-height: 100vh;
+    min-height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -139,3 +138,14 @@
         width: 100%;
     }
 }
+
+/* ✅ Remove bullet points from violation list */
+.violation-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .violation-item {
+    padding: 0;
+  }
+  

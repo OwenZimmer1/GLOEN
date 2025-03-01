@@ -4,7 +4,7 @@ import BradyLogo from "../assets/bradyLogo.svg";
 import "./NavBar.css";
 
 const NavBar: React.FC = () => {
-  const switchViewWidth = 768;
+  const switchViewWidth = 1000;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isVertical, setIsVertical] = useState(window.innerWidth <= switchViewWidth);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
