@@ -1,0 +1,214 @@
+/* ✅ Modal Background Overlay */
+.violation-info-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 10px; /* ✅ Prevents modal from touching edges */
+}
+
+/* ✅ Modal Box */
+.violation-modal {
+    background: var(--nav-bg-color);
+    color: var(--nav-text-color);
+    padding: 25px;
+    border-radius: 12px;
+    width: 420px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ✅ Modal Title */
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--nav-text-color);
+}
+
+/* ✅ Product List */
+.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+.product-list li {
+    font-size: 1rem;
+    padding: 6px 0;
+}
+
+/* ✅ Fix Find Products Button (Now Matches Others) */
+.product-link {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.product-link:hover {
+    background-color: var(--border-color);
+    transform: scale(1.05);
+}
+
+/* ✅ Button Group */
+.violation-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* ✅ General Button Styling */
+.violation-buttons button {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    height: 48px;
+}
+
+/* ✅ Ask Pocket Hazmapp Button */
+.hazmapp-button {
+    background-color: #0a74da;
+    color: white;
+    border: 2px solid #085cb6;
+}
+
+.hazmapp-button:hover {
+    background-color: #085cb6;
+    transform: scale(1.05);
+}
+
+/* ✅ Flag Button - Always Red */
+.flag-button {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 2px solid #b02a37 !important;
+}
+
+.flag-button:hover {
+    background-color: #b02a37 !important;
+    transform: scale(1.05);
+}
+
+/* ✅ Back Button */
+.back-button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.back-button:hover {
+    background: var(--border-color);
+    transform: scale(1.05);
+}
+
+/* ✅ Mobile Fixes */
+@media (max-width: 600px) {
+    .violation-modal {
+        width: 95%;
+        max-width: 380px;
+        padding: 18px;
+    }
+
+    .modal-title {
+        font-size: 1.3rem;
+    }
+
+    .violation-buttons {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .violation-buttons button,
+    .product-link {
+        width: 100%;
+    }
+
+    .violation-info-container {
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+}
+
+/* ✅ Print Mode (Forces Light Mode for Better Formatting) */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .violation-modal {
+        background: white;
+        color: black;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .violation-info-container {
+        position: static;
+        display: block;
+        width: 100%;
+        height: auto;
+        background: none;
+    }
+
+    .violation-buttons {
+        display: none;
+    }
+
+    .product-link {
+        text-decoration: underline;
+        color: black;
+    }
+}
+
+/* ✅ Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
