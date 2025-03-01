@@ -99,6 +99,8 @@
 .violation-buttons .go-back {
   width: 100%; /* ✅ Full-width button */
   max-width: 600px;
+  background: var(--nav-text-color);
+  color: var(--bg-color);
   padding: 12px 18px;
   font-size: 16px;
   font-weight: 700;
