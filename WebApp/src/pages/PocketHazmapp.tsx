@@ -1,5 +1,6 @@
 import React from "react";
 import ChatBox from "../components/ChatBox";
+import "./PocketHazmapp.css";
 
 interface Violation {
   class_id: number;
@@ -22,10 +23,8 @@ const PocketHazmapp: React.FC<PocketHazmappProps> = ({ history = [] }) => {
     : "No previous violations detected.";
 
   return (
-    <div className="pockethazmapp-container">
-      <h1>Pocket Hazmapp</h1>
-      <p>Ask workplace safety questions based on previous analysis.</p>
-      <ChatBox context={context} />
+    <div className="pockethazmapp-container"> 
+      <ChatBox context={context} /> 
     </div>
   );
 };
