@@ -1,6 +1,5 @@
 import React from "react";
 import ChatBox from "../components/ChatBox";
-import "./PocketHazmapp.css";
 
 interface Violation {
   class_id: number;
