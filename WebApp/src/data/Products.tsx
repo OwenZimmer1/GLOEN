@@ -1,27 +1,31 @@
 const products: { [key: string]: { name: string; url: string; img?: string }[] } = {
     "ANSI A13-1": [
-      { name: "Pipe Marking Labels", url: "https://www.bradyid.com/pipemarking", img: "/assets/pipe_marking.jpg" },
-      { name: "Safety Signage", url: "https://www.bradyid.com/safety-signs", img: "/assets/safety_signs.jpg" },
+      { name: "Pipe Marking Labels", url: "https://www.bradyid.com/pipe-markers-and-valve-tags"},
+      { name: "Print Your Own Labels", url: "https://www.bradyid.com/label-printers/pipe-marking"},
     ],
     "ANSI Z358-1": [
-      { name: "Emergency Eyewash Station", url: "https://www.bradyid.com/eyewash", img: "/assets/eyewash_station.jpg" },
-      { name: "Safety Shower Equipment", url: "https://www.bradyid.com/safety-showers", img: "/assets/safety_shower.jpg" },
+      { name: "Emergency Eyewash Station", url: "https://www.bradyid.com/safety-security/double-bottle-eye-wash-station-pid-pd997e",},
+      { name: "Safety Shower and Eyewash Inspection Tags", url: "https://www.bradyid.com/tags/inspection/emergency-shower-eye-wash-inspection-tags-cps-661250?part-number=86615&Ntt=shower&el=products&el_text=shower"},
+      { name: "Emergency Eyewash and Safety Shower Signs", url: "https://www.bradyid.com/signs/emergency-safety-shower-eye-wash-station-sign-cps-brus-10145"},
+      { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
     ],
     "OSHA 1910-157(c)(1)": [
-      { name: "Fire Extinguisher Signage", url: "https://www.bradyid.com/fire-signs", img: "/assets/fire_sign.jpg" },
-      { name: "Fire Equipment Cabinets", url: "https://www.bradyid.com/fire-cabinets", img: "/assets/fire_cabinet.jpg" },
+      { name: "Fire Extinguisher Signs", url: "https://www.bradyid.com/fire-extinguisher-signs",},
+      { name: "Fire Equipment Cabinets Signs", url: "https://www.bradyid.com/signs/fire",},
+      { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
     ],
     "OSHA 1910-303(e)(1)": [
-      { name: "Electrical Safety Labels", url: "https://www.bradyid.com/electrical-labels", img: "/assets/electrical_label.jpg" },
-      { name: "Voltage Warning Signs", url: "https://www.bradyid.com/voltage-signs", img: "/assets/voltage_sign.jpg" },
+      { name: "Electrical Safety Labels", url: "https://www.bradyid.com/safety-signs/electrical-arc-flash"},
+      { name: "Voltage Warning Signs", url: "https://www.bradyid.com/safety-signs/electrical-arc-flash"},
     ],
     "OSHA 1910-303(g)(1)": [
-      { name: "Electrical Clearance Signs", url: "https://www.bradyid.com/electrical-clearance", img: "/assets/electrical_clearance.jpg" },
-      { name: "Lockout Tagout Devices", url: "https://www.bradyid.com/lockout", img: "/assets/lockout.jpg" },
+      { name: "Electrical Clearance Signs", url: "https://www.bradyid.com/safety-signs/electrical-arc-flash"},
+      { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
     ],
     "OSHA 1910-37(a)(3)": [
-      { name: "Exit Route Signs", url: "https://www.bradyid.com/exit-signs", img: "/assets/exit_sign.jpg" },
-      { name: "Glow-in-the-Dark Exit Markings", url: "https://www.bradyid.com/glow-exit", img: "/assets/glow_exit.jpg" },
+      { name: "Exit Route Signs", url: "https://www.bradyid.com/exit-signs"},
+      { name: "Glow-in-the-Dark Exit Markings", url: "https://www.bradyid.com/signs/glow-in-the-dark"},
+      { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
     ],
     "No Violation": [],
   };

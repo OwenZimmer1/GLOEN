@@ -29,16 +29,20 @@ const ViolationDetails: React.FC<ViolationListProps> = ({ violation, onClose }) 
 
         <h3>Possible Brady Products</h3>
         {relatedProducts.length > 0 ? (
-          <ul className="product-list">
+          <div className="product-grid">
             {relatedProducts.map((product, index) => (
-              <li key={index}>
-                <a href={product.url} target="_blank" rel="noopener noreferrer">
-                  {product.img && <img src={product.img} alt={product.name} className="product-image" />}
-                  <span>{product.name}</span>
-                </a>
-              </li>
+              <a
+                key={index}
+                href={product.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="product-card"
+              >
+                {product.img && <img src={product.img} alt={product.name} className="product-image" />}
+                <p className="product-name">{product.name}</p>
+              </a>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No recommended products for this violation.</p>
         )}
