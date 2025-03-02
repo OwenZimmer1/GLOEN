@@ -8,6 +8,7 @@ import Camera from './components/Camera';
 import ViolationResults from './pages/ViolationResults';
 import HistoryPage from './pages/HistoryPage';
 import PocketHazmapp from './pages/PocketHazmapp';
+import HazMappReport from './data/HazMappReport';
 import { LoadingStateProvider } from './components/LoadingState';
 import { Violation } from './pages/ViolationResults';
 
@@ -55,6 +56,7 @@ const App: React.FC = () => {
               <Route path="/reports" element={<HistoryPage history={history} />} />
               <Route path="/pockethazmapp" element={<PocketHazmapp history={history} />} />
               <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/hazmapp-report" element={<HazMappReport />} />
             </Routes>
           </div>
         </div>

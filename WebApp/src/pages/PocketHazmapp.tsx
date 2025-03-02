@@ -14,7 +14,7 @@ interface PocketHazmappProps {
 const PocketHazmapp: React.FC<PocketHazmappProps> = ({ history = [] }) => {
   // ✅ Get the latest report from history (or default to empty context)
   const lastReport = history.length > 0 ? history[history.length - 1] : null;
-  
+
   const context = lastReport
     ? lastReport.processedData
         .map((v) => `${v.class_name} (${Math.round(v.confidence * 100)}%)`)
@@ -22,8 +22,9 @@ const PocketHazmapp: React.FC<PocketHazmappProps> = ({ history = [] }) => {
     : "No previous violations detected.";
 
   return (
-    <div className="pockethazmapp-container"> 
-      <ChatBox context={context} /> 
+    <div className="pockethazmapp-container">
+      <h1 className="pockethazmapp-title">PocketHazmapp</h1>
+      <ChatBox context={context} />
     </div>
   );
 };

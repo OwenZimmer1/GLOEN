@@ -21,7 +21,7 @@ const ViolationDetails: React.FC<ViolationListProps> = ({ violation, onClose }) 
         <h2 className="modal-title">{violation.class_name}</h2>
         <p>
           <strong>Regulation Description:</strong>{" "}
-          {violationDescriptions[violation.class_name as keyof typeof violationDescriptions] ??
+          {violationDescriptions[violation.class_name as keyof typeof violationDescriptions] ?? 
             "No description available."}
         </p>
 
@@ -34,17 +34,20 @@ const ViolationDetails: React.FC<ViolationListProps> = ({ violation, onClose }) 
 
         {/* ✅ Updated Button Layout */}
         <div className="violation-buttons">
-          <button className="hazmapp-button" onClick={() => navigate("/pockethazmapp")}>
-            Ask Pocket Hazmapp
-          </button>
+        <button 
+          className="hazmapp-button" 
+          onClick={() => navigate("/hazmapp-report", { state: { violations: violation.class_name } })}
+        >
+          HazMapp Report
+        </button>
+
 
           <button
             className="product-link"
             onClick={() => window.open("https://www.bradyid.com/", "_blank")}
-            >
+          >
             Find Products
           </button>
-
 
           <button className="flag-button" onClick={handleFlagViolation}>
             Flag
