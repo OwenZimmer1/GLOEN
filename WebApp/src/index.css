@@ -34,13 +34,13 @@
   /* ✅ Dark Mode Colors */
   --bg-color: #1f262f;
   --text-color: #ffffff;
-  --nav-bg-color: #1e1e1e;
+  --nav-bg-color: #1f262f;
   --nav-text-color: #ffffff;
   --button-bg: #ffffff;
   --button-text: #19336E;
   --button-hover-bg: rgba(255, 255, 255, 0.1);
   --border-color: #333333;
-  --toggle-bg: #444;
+  --toggle-bg: #4f5874;
   --toggle-circle: #ffffff;
 }
 
@@ -107,6 +107,7 @@ body {
   .dropdown-menu {
     width: 90%;
     max-width: 250px;
+    background-color: var(--nav-bg-color);
   }
 
   .dropdown-menu a {
