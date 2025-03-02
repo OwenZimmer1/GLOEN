@@ -9,3 +9,5 @@ matplotlib
 seaborn
 ultralytics-thop
 ultralytics==8.3.80
+openai
+python-dotenv==1.0.1
