@@ -2,6 +2,7 @@ import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
 import { Violation } from "../pages/ViolationResults"; 
+import "./ImageUpload.css/";
 
 interface ImageUploadProps {
   onAddToHistory: (imageUrl: string, report: string, processedData: Violation[]) => void;
@@ -68,39 +69,35 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
   };
 
   return (
-    <div className={`page-container ${isLoading ? "pointer-events-none select-none opacity-50" : ""}`}>
+    <div className={`image-upload-container ${isLoading ? "pointer-events-none select-none opacity-50" : ""}`}>
       <h1>Upload Your Image</h1>
       <p>Upload an image to check for safety hazards.</p>
-      <input type="file" accept="image/*" onChange={handleImageChange} disabled={isLoading} />
+
+      {/* ✅ Hidden Input + Custom Button */}
+      <input 
+        type="file" 
+        accept="image/*" 
+        id="file-upload"
+        className="image-upload-input"
+        onChange={handleImageChange} 
+        disabled={isLoading} 
+      />
+      <label htmlFor="file-upload" className={`image-upload-label ${isLoading ? "disabled" : ""}`}>
+        {isLoading ? "Uploading..." : "Choose File"}
+      </label>
 
       {imageSrc && (
-        <div style={{ marginTop: "20px", textAlign: "center" }}>
-          <img
-            src={imageSrc}
-            alt="Uploaded Preview"
-            style={{
-              maxWidth: "80%",
-              maxHeight: "400px",
-              objectFit: "contain",
-            }}
-          />
+        <div className="image-preview">
+          <img src={imageSrc} alt="Uploaded Preview" />
         </div>
       )}
 
       {imageSrc && (
-        <div style={{ marginTop: "10px", textAlign: "center", display: "flex", justifyContent: "center", gap: "10px" }}>
-          <button
-            onClick={processImage}
-            disabled={isLoading}
-            style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
-          >
+        <div className="upload-buttons">
+          <button onClick={processImage} disabled={isLoading}>
             {isLoading ? "Processing..." : "Process Image"}
           </button>
-          <button
-            onClick={discardImage}
-            disabled={isLoading}
-            style={{ backgroundColor: "#dc3545", color: "white", cursor: isLoading ? "not-allowed" : "pointer" }}
-          >
+          <button onClick={discardImage} disabled={isLoading} className="cancel-btn">
             Cancel
           </button>
         </div>

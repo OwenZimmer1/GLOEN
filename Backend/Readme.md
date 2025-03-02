@@ -45,3 +45,23 @@ In a new terminal navigate to GLOEN/WebApp and run:
 ```
 npm run dev
 ```
+
+
+### Step 5: Enable RAG with OpenAI API Key
+
+To enable Retrieval-Augmented Generation (RAG) for the chatbot, follow these steps:
+
+Create a new file inside GLOEN/backend named .env
+Save your OpenAI API key inside .env:
+```
+OPENAI_API_KEY='your_api_key_here'
+```
+Install the new dependency (python-dotenv, openai)
+```
+pip install python-dotenv
+```
+Restart the backend as before:
+```
+python server.py
+```
+Now, the chatbot in PocketHazmapp will work correctly using RAG! 🎉

@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* ✅ Centers content */
   text-align: center;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -37,7 +37,7 @@
 /* ✅ Violation Report Box - Ensures Proper Alignment */
 .violation-details {
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   background-color: var(--nav-bg-color);
   color: var(--text-color);
   padding: 20px;
@@ -72,12 +72,12 @@
   justify-content: center;
   margin-top: 15px;
   width: 100%;
-  max-width: 600px;
+  max-width: 450px; /* ✅ Matches the width of .violation-details */
 }
 
 /* ✅ Standard Button Styling */
 .violation-buttons button {
-  padding: 8px 14px;
+  padding: 10px 16px;
   font-size: 14px;
   font-weight: 600;
   border-radius: 6px;
@@ -86,8 +86,7 @@
   background: var(--button-bg);
   color: var(--button-text);
   border: 2px solid var(--border-color);
-  min-width: 120px; /* ✅ Other buttons are smaller */
-  max-width: 160px;
+  min-width: 140px; /* ✅ Ensures uniform button size */
 }
 
 /* ✅ Hover Effects */
@@ -96,7 +95,7 @@
   transform: scale(1.05);
 }
 
-/* ✅ Go Back Button - Now Full Width */
+/* ✅ Go Back Button - Ensures it stays last */
 .violation-buttons .go-back {
   width: 100%; /* ✅ Full-width button */
   max-width: 600px;
@@ -108,9 +107,9 @@
   border-radius: 8px;
 }
 
-.violation-buttons .go-back:hover {
+/* .violation-buttons .go-back:hover {
   background: rgba(25, 51, 110, 0.85);
-}
+} */
 
 /* ✅ Log Actions Section (Now Aligned Properly) */
 .log-actions {
@@ -118,13 +117,13 @@
   gap: 10px;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 600px; /* ✅ Matches the width of violation-details */
   flex-wrap: wrap;
 }
 
 /* ✅ Log Actions Button Styling */
 .log-actions button {
-  padding: 8px 14px;
+  padding: 10px 16px;
   font-size: 14px;
   font-weight: 500;
   border-radius: 6px;
@@ -132,8 +131,7 @@
   background: var(--button-bg);
   color: var(--button-text);
   border: 2px solid var(--border-color);
-  min-width: 120px;
-  max-width: 160px;
+  min-width: 140px; /* ✅ Ensures buttons align properly */
 }
 
 .log-actions button:hover {
@@ -142,7 +140,7 @@
 }
 
 /* ✅ Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 786px) {
   .violation-content {
     width: 90%;
   }
@@ -151,12 +149,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 100%;
+    max-width: 90%;
   }
 
   .violation-buttons button {
     width: auto;
-    min-width: 100px;
+    min-width: 120px;
   }
 }
 
@@ -164,14 +162,10 @@
   .violation-buttons {
     flex-direction: column;
     align-items: center;
-    max-width: 300px;
+    max-width: 550px;
   }
 
   .violation-buttons button {
-    width: 100%;
-  }
-
-  .go-back {
     width: 100%;
   }
 }
