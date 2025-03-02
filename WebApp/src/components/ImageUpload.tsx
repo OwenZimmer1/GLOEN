@@ -66,6 +66,9 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
 
   const discardImage = () => {
     setImageSrc(null);
+    // ✅ Reset input field so user can re-upload
+    const fileInput = document.getElementById("file-upload") as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
   };
 
   return (
@@ -73,18 +76,22 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
       <h1>Upload Your Image</h1>
       <p>Upload an image to check for safety hazards.</p>
 
-      {/* ✅ Hidden Input + Custom Button */}
-      <input 
-        type="file" 
-        accept="image/*" 
-        id="file-upload"
-        className="image-upload-input"
-        onChange={handleImageChange} 
-        disabled={isLoading} 
-      />
-      <label htmlFor="file-upload" className={`image-upload-label ${isLoading ? "disabled" : ""}`}>
-        {isLoading ? "Uploading..." : "Choose File"}
-      </label>
+      {/* ✅ Hide input if image is uploaded */}
+      {!imageSrc && (
+        <>
+          <input 
+            type="file" 
+            accept="image/*" 
+            id="file-upload"
+            className="image-upload-input"
+            onChange={handleImageChange} 
+            disabled={isLoading} 
+          />
+          <label htmlFor="file-upload" className={`image-upload-label ${isLoading ? "disabled" : ""}`}>
+            {isLoading ? "Uploading..." : "Choose File"}
+          </label>
+        </>
+      )}
 
       {imageSrc && (
         <div className="image-preview">

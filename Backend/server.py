@@ -83,9 +83,7 @@ def process_image():
         return jsonify({"status": "error", "message": str(e)}), 500
     
 # ✅ Load OpenAI API Key Securely
-# ✅ Load environment variables from .env file
 load_dotenv()
-# ✅ Read OpenAI API key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise ValueError("❌ OpenAI API key not found. Set OPENAI_API_KEY as an environment variable.")
@@ -102,7 +100,18 @@ def chat():
         if not question:
             return jsonify({"status": "error", "message": "No question provided"}), 400
 
-        prompt_text = f"Workplace safety expert, analyze this:\n\nContext: {context}\n\nUser Question: {question}"
+        # ✅ Updated prompt to enforce Markdown formatting
+        prompt_text = f"""
+        You are a workplace safety expert. Provide a well-structured response in Markdown format.
+        - Use **bold** for key terms.
+        - Use bullet points for listing important safety guidelines.
+        - Use paragraphs for explanations.
+        - Add headings (###) where necessary.
+
+        **Context:** {context}
+
+        **User Question:** {question}
+        """
 
         response = client.chat.completions.create(
             model="gpt-4-turbo",
