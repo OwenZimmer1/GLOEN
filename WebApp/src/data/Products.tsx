@@ -27,6 +27,11 @@ const products: { [key: string]: { name: string; url: string; img?: string }[] }
       { name: "Glow-in-the-Dark Exit Markings", url: "https://www.bradyid.com/signs/glow-in-the-dark"},
       { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
     ],
+    "OSHA 1910-37(b)(2)":[
+      { name: "Exit Route Signs", url: "https://www.bradyid.com/exit-signs"},
+      { name: "Glow-in-the-Dark Exit Markings", url: "https://www.bradyid.com/signs/glow-in-the-dark"},
+      { name: "Floor Marking Tape", url: "https://www.bradyid.com/floor-tape"}
+    ],
     "No Violation": [],
   };
   
