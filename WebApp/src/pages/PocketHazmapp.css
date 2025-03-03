@@ -1,0 +1,33 @@
+/* Reset body and html styles */
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important; /* Ensure full height */
+}
+
+/* Style the root element */
+#root {
+    min-height: 100% !important; /* Ensure it fills the body */
+    display: flex;
+    flex-direction: column !important;
+}
+
+/* ✅ PocketHazmapp Container - Adjust Top Spacing */
+.pockethazmapp-container {
+  text-align: center;
+  padding: 20px !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+  display: flex;
+  flex-direction: column !important;
+  min-height: calc(100vh - 60px) !important; /* subtract the header */
+}
+
+
+/* ✅ PocketHazmapp Title */
+.pockethazmapp-title {
+  font-size: 2em !important;
+  margin-bottom: 20px !important;
+}
+

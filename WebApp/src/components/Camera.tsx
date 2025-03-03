@@ -79,7 +79,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
 
   return (
     <div
-      style={{ textAlign: "center" }}
+      style={{ textAlign: "center", padding: "170px" }}
       className={isLoading ? "pointer-events-none select-none opacity-50" : ""}
     >
       <h1>Take a Picture</h1>

@@ -2,6 +2,7 @@
 .image-upload-container {
     text-align: center;
     padding: 20px;
+    padding-top: 150px;
 }
 
 /* ✅ Custom File Input Button */
@@ -147,7 +148,7 @@
   .image-preview {
     width: 100%;
     aspect-ratio: 1/1; /* Forces square shape */
-    overflow: hidden;
+    overflow: clip;
     border-radius: 8px;
     transition: transform 0.2s ease;
   }
@@ -159,10 +160,8 @@
     border-radius: 8px;
   }
   
-  /* Optional hover effect */
   .image-preview:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
   
   .image-previews.grid {
