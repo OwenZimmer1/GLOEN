@@ -1,9 +1,9 @@
-#root {
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+}*/
 
 .logo {
   height: 6em;
@@ -52,6 +52,8 @@
   padding: 10px 20px;
   background-color: #3a3a3a;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Ensure it stays on top */
+  height: 60px; /* Set a fixed height */
 }
 
 .navbar-logo {
@@ -75,6 +77,7 @@
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: white;
 }
 
 .navbar-buttons button.active {
@@ -126,8 +129,9 @@
 }
 
 .content {
-  margin-top: 60px;
-  padding: 20px;
+  flex-grow: 1;
+  width: 100%;
+  padding-top: 60px;
 }
 
 @media (max-width: 768px) {
@@ -175,7 +179,9 @@
   background-color: #4a4a4a;
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }

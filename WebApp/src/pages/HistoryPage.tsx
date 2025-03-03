@@ -27,9 +27,9 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
 
   return (
     <div className="history-page">
-      <h1>History</h1>
+      <h1 className="history-title">History</h1>
       {history.length === 0 ? (
-        <p>No history available.</p>
+        <p className="no-history-message">No history available.</p>
       ) : (
         <div className="history-grid">
           {[...history].reverse().map((entry, index) => (

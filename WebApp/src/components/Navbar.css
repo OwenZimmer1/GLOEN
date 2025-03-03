@@ -161,6 +161,11 @@ input:checked + .slider:before {
     color: var(--nav-text-color);
     padding: 10px;
     transition: color 0.3s ease-in-out;
+    outline: none; 
+}
+
+.dropdown-toggle:focus {
+    outline: none; 
 }
 
 .dropdown-menu {
@@ -259,3 +264,4 @@ input:checked + .slider:before {
         padding: 8px;
     }
 }
+

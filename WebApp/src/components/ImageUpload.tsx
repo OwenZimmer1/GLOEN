@@ -49,14 +49,24 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
             .join(", ");
 
           onAddToHistory(image, report, data.violations);
+
+          // Single image handling (like CameraComponent)
+          if (images.length === 1) {
+            navigate("/violation", {
+              state: { imageUrl: image, processedData: data.violations }
+            });
+            return; // Exit early for single image
+          }
         } else {
           console.error("Error processing image:", data.message);
         }
       }
 
-      // Navigate to history after all images processed
-      navigate("/reports");
-      
+      // Multi-image handling
+      if (images.length > 1) {
+        navigate("/reports");
+      }
+
     } catch (error) {
       console.error("Error:", error);
     } finally {

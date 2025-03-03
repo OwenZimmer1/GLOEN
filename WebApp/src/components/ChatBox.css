@@ -16,6 +16,7 @@
     overflow: hidden;
 }
 
+/* ✅ Chat History - Scrollable & Styled */
 .chat-history {
     flex-grow: 1;
     width: 100%;
