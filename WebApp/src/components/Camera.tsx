@@ -3,7 +3,6 @@ import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
 import { Violation } from "../pages/ViolationResults";
-import "./Camera.css"; 
 import API_BASE_URL from "../config";
 
 interface CameraProps {

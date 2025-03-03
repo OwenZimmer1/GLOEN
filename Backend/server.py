@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # ✅ Load the YOLOv8 model
-MODEL_PATH = "models/best.pt"
+MODEL_PATH = "models/bestAbhi.pt"
 model = YOLO(MODEL_PATH)
 
 # ✅ Define class names (ensure these match your trained model)
