@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
 import { Violation } from "../pages/ViolationResults"; 
+import API_BASE_URL from "../config";
 
 interface CameraProps {
   onAddToHistory: (
@@ -34,13 +35,13 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
       try {
         setLoading(true);
 
-        // ✅ Convert base64 image to file format for backend
+        // Convert base64 image to file format for backend
         const blob = await fetch(imgSrc).then((res) => res.blob());
         const formData = new FormData();
         formData.append("image", blob, "captured.jpg");
 
-        // ✅ Send to backend
-        const response = await fetch("http://localhost:5000/process-image", {
+        // Send to backend
+        const response = await fetch(`${API_BASE_URL}/process-image`, {
           method: "POST",
           body: formData,
         });
@@ -56,7 +57,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             )
             .join(", ");
 
-          // ✅ Pass processedData to history
+          //Pass processedData to history
           onAddToHistory(imgSrc, report, data.violations);
 
           navigate("/violation", {

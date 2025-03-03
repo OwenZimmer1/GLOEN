@@ -1,20 +1,17 @@
-/* ✅ Container Styling (Title Background Fix) */
 .hazmapp-report-container {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
-    background: var(--bg-color); /* ✅ Light mode background */
+    background: var(--bg-color); 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(17, 12, 52, 0.359);
     transition: background-color 0.3s, color 0.3s;
   }
   
-  /* ✅ Dark Mode Fix (Title Background) */
   .dark-mode .hazmapp-report-container {
-    background: #232931; /* ✅ Darker shade for better contrast */
+    background: #232931;
   }
   
-  /* ✅ Title Styling */
   .report-title {
     text-align: left;
     font-size: 24px;
@@ -23,21 +20,20 @@
     margin-bottom: 20px;
   }
   
-  /* ✅ AI Response Styling (Restored Background You Liked) */
   .report-content {
     text-align: left;
     font-size: 16px;
     font-style: italic;
     color: var(--text-color);
     line-height: 1.8;
-    background: var(--nav-bg-color); /* ✅ Keeps the background you liked */
+    background: var(--nav-bg-color);
     padding: 20px;
     border-radius: 5px;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, color 0.3s;
   }
   
-  /* ✅ AI Response Markdown Formatting */
+  /* AI Response Markdown Formatting */
   .report-content h1, 
   .report-content h2, 
   .report-content h3 {
@@ -59,7 +55,6 @@
     margin-bottom: 5px;
   }
   
-  /* ✅ Emoji Loading Animation */
   .loading-message {
     font-size: 22px;
     font-weight: bold;
@@ -75,7 +70,7 @@
     overflow: hidden;
   }
   
-  /* ✅ Keyframes for Emoji Switching Animation */
+  /* Keyframes for Emoji Switching Animation */
   @keyframes switch-emoji {
     0% { content: "👷🧯⚠️⛑️☢️"; }
     20% { content: "☢️👷🧯⚠️⛑️"; }
@@ -85,13 +80,13 @@
     100% { content: "👷🧯⚠️⛑️☢️"; }
 }
   
-  /* ✅ Apply the Keyframes */
+  /* Apply the Keyframes */
   .loading-message::after {
       content: "👷🧯⚠️⛑️☢️"; /* Default state */
       animation: switch-emoji 1.5s linear infinite;
   }
   
-  /* ✅ Responsive Design */
+  /* Responsive Design */
   @media (max-width: 768px) {
     .hazmapp-report-container {
       width: 90%;

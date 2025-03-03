@@ -2,7 +2,9 @@ import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
 import { Violation } from "../pages/ViolationResults"; 
-import "./ImageUpload.css/";
+import "./ImageUpload.css";
+import API_BASE_URL from "../config";
+
 
 interface ImageUploadProps {
   onAddToHistory: (imageUrl: string, report: string, processedData: Violation[]) => void;
@@ -34,7 +36,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
         const formData = new FormData();
         formData.append("image", blob, "image.jpg");
 
-        const res = await fetch("http://localhost:5000/process-image", {
+        const res = await fetch(`${API_BASE_URL}/process-image`, {
           method: "POST",
           body: formData,
         });

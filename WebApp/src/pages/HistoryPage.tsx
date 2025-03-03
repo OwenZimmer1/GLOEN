@@ -8,7 +8,7 @@ interface HistoryPageProps {
   history: {
     imageUrl: string;
     report: string;
-    processedData: Violation[]; // ✅ Add processedData to history entries
+    processedData: Violation[];
   }[];
 }
 
@@ -51,7 +51,7 @@ const HistoryPage: React.FC<HistoryPageProps> = ({ history }) => {
               />
               <p className="history-report">
                 {entry.report.split(",").map((violation, index) => {
-                  const name = violation.split("(")[0].trim(); // Extract name before "("
+                  const name = violation.split("(")[0].trim();
                   return (
                     <span key={index}>
                       {name}

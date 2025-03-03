@@ -1,15 +1,15 @@
-/* ✅ Image Upload Container */
+/* Image Upload Container */
 .image-upload-container {
     text-align: center;
     padding: 20px;
 }
 
-/* ✅ Custom File Input Button */
+/* Custom File Input Button */
 .image-upload-input {
     display: none; /* Hide default file input */
 }
 
-/* ✅ Styled Choose File Button */
+/* Styled Choose File Button */
 .image-upload-label {
     display: inline-block;
     background-color: var(--button-bg);
@@ -28,14 +28,14 @@
     transform: scale(1.05);
 }
 
-/* ✅ Disabled State */
+/* Disabled State */
 .image-upload-label.disabled {
     background-color: gray;
     cursor: not-allowed;
     opacity: 0.7;
 }
 
-/* ✅ Image Preview */
+/* Image Preview */
 .image-preview {
     margin-top: 20px;
     text-align: center;
@@ -54,7 +54,6 @@
     transform: scale(1.02);
 }
 
-/* ✅ Buttons Container */
 .upload-buttons {
     display: flex;
     justify-content: center;
@@ -62,7 +61,7 @@
     margin-top: 15px;
 }
 
-/* ✅ Process & Cancel Buttons */
+/* Process & Cancel Buttons */
 .upload-buttons button {
     border-radius: 8px;
     border: 1px solid var(--border-color);
@@ -94,14 +93,12 @@
     transform: scale(1.05);
 }
 
-/* ✅ Disabled Button State */
 .upload-buttons button:disabled {
     background-color: gray;
     cursor: not-allowed;
     opacity: 0.7;
 }
 
-/* ✅ Responsive Adjustments */
 @media (max-width: 768px) {
     .image-upload-container {
         width: 90%;

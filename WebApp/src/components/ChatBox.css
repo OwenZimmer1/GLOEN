@@ -1,23 +1,21 @@
-/* ✅ Chat Container - Centered, Full-Screen Chat UI */
 .chat-container {
     width: 100%;
-    max-width: 800px;  /* ✅ Prevents extra-wide chat */
-    height: 95vh;  /* ✅ Prevents overflowing on larger screens */
+    max-width: 800px;
+    height: 95vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* ✅ Keeps input at bottom */
+    justify-content: space-between;
     align-items: center;
     background-color: var(--bg-color);
     color: var(--text-color);
     padding: 15px;
-    margin: auto; /* ✅ Centers the chatbox */
+    margin: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     transition: background-color 0.3s, color 0.3s;
     overflow: hidden;
 }
 
-/* ✅ Chat History - Scrollable & Styled */
 .chat-history {
     flex-grow: 1;
     width: 100%;
@@ -28,7 +26,6 @@
     border-radius: 8px;
 }
 
-/* ✅ User Messages */
 .chat-question {
     color: var(--nav-text-color);
     font-weight: bold;
@@ -39,7 +36,6 @@
     display: inline-block;
 }
 
-/* ✅ AI Responses */
 .chat-answer {
     color: var(--text-color);
     font-style: italic;
@@ -50,7 +46,6 @@
     text-align: left;
 }
 
-/* ✅ Chat Input Section - Fixed at Bottom */
 .chat-input-container {
     display: flex;
     width: 100%;
@@ -61,7 +56,6 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* ✅ Chat Input Box */
 .chat-input {
     flex-grow: 1;
     padding: 12px;
@@ -73,13 +67,11 @@
     transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
-/* ✅ Input Focus Effect */
 .chat-input:focus {
     border-color: var(--button-bg);
     outline: none;
 }
 
-/* ✅ Send Button - Modern & Responsive */
 .chat-send {
     padding: 12px;
     width: 44px;
@@ -96,24 +88,20 @@
     justify-content: center;
 }
 
-/* ✅ Default State (Arrow ➤) */
 .chat-send::after {
-    content: "➤"; /* Send arrow */
+    content: "➤";
     font-size: 1.2rem;
 }
 
-/* ✅ Loading State (Loading Icon ↻) */
 .chat-send.loading::after {
     content: "↻";
 }
 
-/* ✅ Send Button Hover Effect */
 .chat-send:hover {
     background-color: var(--button-hover-bg);
     transform: scale(1.05);
 }
 
-/* ✅ Responsive Design */
 @media (max-width: 1024px) {
     .chat-container {
         max-width: 90%;

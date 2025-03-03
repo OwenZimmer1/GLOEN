@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import "./HazMappReport.css";
+import API_BASE_URL from "../config";
 
 const HazMappReport: React.FC = () => {
   const location = useLocation();
@@ -16,16 +17,14 @@ const HazMappReport: React.FC = () => {
     const fetchReport = async () => {
       const storedReports = JSON.parse(localStorage.getItem("hazmapp_reports") || "{}");
 
-      // ✅ Check if report is already stored for this violation
       if (storedReports[violationContext]) {
         setReport(storedReports[violationContext]);
         setLoading(false);
         return;
       }
 
-      // ✅ If no cached report, fetch from AI
       try {
-        const response = await axios.post("http://localhost:5000/chat", {
+        const response = await axios.post(`${API_BASE_URL}/chat`, {
           question: "Generate a detailed safety report based on these violations.",
           context: violationContext,
         });
@@ -33,7 +32,6 @@ const HazMappReport: React.FC = () => {
         const generatedReport = response.data.response;
         setReport(generatedReport);
 
-        // ✅ Save the new report in local storage
         storedReports[violationContext] = generatedReport;
         localStorage.setItem("hazmapp_reports", JSON.stringify(storedReports));
       } catch (err) {
