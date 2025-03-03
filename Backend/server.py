@@ -3,6 +3,9 @@ from flask_cors import CORS
 import cv2
 import numpy as np
 from ultralytics import YOLO
+from dotenv import load_dotenv  # ✅ Import dotenv
+from openai import OpenAI
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -75,6 +78,49 @@ def process_image():
         print("✅ Final Predictions:", violations_detected)
 
         return jsonify({"status": "success", "violations": violations_detected})
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+    
+# ✅ Load OpenAI API Key Securely
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise ValueError("❌ OpenAI API key not found. Set OPENAI_API_KEY as an environment variable.")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    try:
+        data = request.get_json()
+        question = data.get("question")
+        context = data.get("context", "")
+
+        if not question:
+            return jsonify({"status": "error", "message": "No question provided"}), 400
+
+        # ✅ Updated prompt to enforce Markdown formatting
+        prompt_text = f"""
+        You are a workplace safety expert. Provide a well-structured response in Markdown format.
+        - Use **bold** for key terms.
+        - Use bullet points for listing important safety guidelines.
+        - Use paragraphs for explanations.
+        - Add headings (###) where necessary.
+
+        **Context:** {context}
+
+        **User Question:** {question}
+        """
+
+        response = client.chat.completions.create(
+            model="gpt-4-turbo",
+            messages=[{"role": "user", "content": prompt_text}],
+            max_tokens=500,
+            temperature=0.3
+        )
+
+        return jsonify({"status": "success", "response": response.choices[0].message.content})
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500

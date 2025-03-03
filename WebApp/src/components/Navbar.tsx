@@ -4,7 +4,7 @@ import BradyLogo from "../assets/bradyLogo.svg";
 import "./NavBar.css";
 
 const NavBar: React.FC = () => {
-  const switchViewWidth = 768;
+  const switchViewWidth = 1000;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isVertical, setIsVertical] = useState(window.innerWidth <= switchViewWidth);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
@@ -101,10 +101,14 @@ const NavBar: React.FC = () => {
               )}
 
               {/* Dark Mode Toggle - Mobile */}
-              <div className="dark-mode-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
+              <div className="dark-mode-toggle">
                 <span>Dark Mode</span>
                 <label className="switch">
-                  <input type="checkbox" checked={isDarkMode} onChange={() => setIsDarkMode(!isDarkMode)} />
+                  <input 
+                    type="checkbox" 
+                    checked={isDarkMode} 
+                    onChange={() => setIsDarkMode(!isDarkMode)}
+                  />
                   <span className="slider round"></span>
                 </label>
               </div>

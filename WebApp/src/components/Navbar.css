@@ -9,7 +9,7 @@
 
 /* ✅ Dark mode */
 body.dark-mode {
-    --nav-bg-color: #171c23c3;
+    --nav-bg-color: #1e242e;
     --nav-text-color: #f9fafb;
     --button-bg: #374151;
     --button-text: #f9fafb;
@@ -170,6 +170,11 @@ input:checked + .slider:before {
     color: var(--nav-text-color);
     padding: 10px;
     transition: color 0.3s ease-in-out;
+    outline: none; 
+}
+
+.dropdown-toggle:focus {
+    outline: none; 
 }
 
 /* ✅ Dropdown Menu */
@@ -193,6 +198,7 @@ input:checked + .slider:before {
     overflow-y: auto;
     z-index: 1000;
 }
+
 
 /* ✅ Improve Dropdown Buttons */
 .dropdown-menu a {
@@ -222,27 +228,44 @@ input:checked + .slider:before {
     font-size: 14px;
 }
 
-/* ✅ Mobile View Fixes */
+/* ✅ Minimal Mobile View Fixes */
 @media (max-width: 768px) {
     .navbar {
         padding: 12px 16px;
+        flex-direction: column;
     }
 
     .navbar-container {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .navbar-logo {
+        margin-bottom: 8px;
     }
 
     .navbar-logo-img {
-        width: 230px;
+        width: 200px; /* ✅ Slightly smaller to fit better on mobile */
+    }
+
+    .navbar-buttons {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .navbar-buttons a {
+        width: 90%;
+        text-align: center;
+        padding: 12px;
     }
 
     /* ✅ Make Mobile Dropdown Uniform */
     .dropdown-menu {
-        width: 90vw;
-        max-width: 280px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 8px;
+        width: 92vw;
+        max-width: 300px;
         border-top: 1px solid var(--border-color);
     }
 
@@ -256,3 +279,4 @@ input:checked + .slider:before {
         padding: 8px;
     }
 }
+

@@ -7,9 +7,11 @@ import ImageUpload from './components/ImageUpload';
 import Camera from './components/Camera';
 import ViolationResults from './pages/ViolationResults';
 import HistoryPage from './pages/HistoryPage';
-import PocketHazmapp from './components/PocketHazmapp';
+import PocketHazmapp from './pages/PocketHazmapp';
+import HazMappReport from './data/HazMappReport';
 import { LoadingStateProvider } from './components/LoadingState';
 import { Violation } from './pages/ViolationResults';
+import "./index.css";
 
 const App: React.FC = () => {
   const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);
@@ -53,8 +55,9 @@ const App: React.FC = () => {
               />
               <Route path="/violation" element={<ViolationResults />} />
               <Route path="/reports" element={<HistoryPage history={history} />} />
-              <Route path="/pockethazmapp" element={<PocketHazmapp />} />
+              <Route path="/pockethazmapp" element={<PocketHazmapp history={history} />} />
               <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/hazmapp-report" element={<HazMappReport />} />
             </Routes>
           </div>
         </div>
