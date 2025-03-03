@@ -1,10 +1,9 @@
 import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
-import { Violation } from "../pages/ViolationResults"; 
+import { Violation } from "../pages/ViolationResults";
 import "./ImageUpload.css";
 import API_BASE_URL from "../config";
-
 
 interface ImageUploadProps {
   onAddToHistory: (imageUrl: string, report: string, processedData: Violation[]) => void;
@@ -28,8 +27,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
 
     try {
       setLoading(true);
-      
-      // Process images sequentially
+
       for (const image of images) {
         const response = await fetch(image);
         const blob = await response.blob();
@@ -42,7 +40,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
         });
 
         const data = await res.json();
-        
+
         if (data.status === "success") {
           const report = data.violations
             .map((v: Violation) => `${v.class_name} (${Math.round(v.confidence * 100)}%)`)
@@ -50,12 +48,12 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
 
           onAddToHistory(image, report, data.violations);
 
-          // Single image handling (like CameraComponent)
+          // Single image handling
           if (images.length === 1) {
             navigate("/violation", {
               state: { imageUrl: image, processedData: data.violations }
             });
-            return; // Exit early for single image
+            return; // Exit early for a single image
           }
         } else {
           console.error("Error processing image:", data.message);
@@ -84,7 +82,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
     <div className={`image-upload-container ${isLoading ? "pointer-events-none select-none opacity-50" : ""}`}>
       <h1>Upload Images</h1>
       <p>Upload multiple images to check for safety hazards.</p>
-  
+
       {!images.length && (
         <>
           <input 
@@ -101,8 +99,14 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
           </label>
         </>
       )}
-  
-      {images.length > 0 && (
+
+      {images.length === 1 && (
+        <div className="single-image-preview">
+          <img src={images[0]} alt="Preview" />
+        </div>
+      )}
+
+      {images.length > 1 && (
         <div className="image-previews grid">
           {images.map((img, index) => (
             <div key={index} className="image-preview">
@@ -115,7 +119,7 @@ function ImageUpload({ onAddToHistory }: ImageUploadProps) {
       {images.length > 0 && (
         <div className="upload-buttons">
           <button onClick={processImages} disabled={isLoading}>
-            {isLoading ? "Processing..." : "Process All Images"}
+            {isLoading ? "Processing..." : images.length === 1 ? "Process Image" : "Process All Images"}
           </button>
           <button onClick={discardImages} disabled={isLoading} className="cancel-btn">
             Clear All

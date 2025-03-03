@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import "./HazMappReport.css";
 import API_BASE_URL from "../config";
 
 const HazMappReport: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const violationContext = location.state?.violations || "No violations detected.";
-  
+
   const [report, setReport] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +59,11 @@ const HazMappReport: React.FC = () => {
           <ReactMarkdown>{report}</ReactMarkdown> {/* Proper AI response formatting */}
         </div>
       )}
+
+      {/* Go Back Button at the Bottom */}
+      <div className="bottom-button-container">
+        <button className="back-button" onClick={() => navigate(-1)}>Go Back</button>
+      </div>
     </div>
   );
 };

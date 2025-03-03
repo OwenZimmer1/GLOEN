@@ -124,4 +124,10 @@
       font-size: 18px;
     }
   }
-  
+  /* Bottom Button Container */
+.bottom-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+

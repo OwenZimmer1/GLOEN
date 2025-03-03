@@ -192,3 +192,25 @@
     }
   }
   
+  /* Centered display for single image */
+.single-image-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.single-image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.single-image-preview img:hover {
+    transform: scale(1.02);
+}
+
+  
