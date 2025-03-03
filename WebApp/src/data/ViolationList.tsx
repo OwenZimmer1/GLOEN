@@ -5,5 +5,6 @@ export const violationDescriptions = {
     "OSHA 1910-303(e)(1)": "Voltage Box Label: Electrical equipment must be clearly labeled with important information such as voltage, current, and wattage. These markings help workers safely operate, troubleshoot, or repair the equipment.",
     "OSHA 1910-303(g)(1)": "Voltage Box Access: There must be enough clear space around electrical equipment to allow safe access for maintenance and operation. Adequate clearance helps prevent electrical accidents and allows for quick shutoffs if needed.",
     "OSHA 1910-37(a)(3)": "Blocked Exit: Exit routes must always remain clear of obstructions to allow for quick and safe evacuation during emergencies. Blocked exits can delay evacuation and put lives at risk.",
+    "OSHA 1910-37(b)(2)": "Each exit much be clearly visible and marked by a sign reading 'Exit.' ",
     "No Violation": "No safety violations detected."
   };

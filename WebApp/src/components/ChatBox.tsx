@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import "./ChatBox.css";
+import API_BASE_URL from "../config";
 
 interface ChatBoxProps {
   context: string;
@@ -25,7 +26,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
     setResponse("");
 
     try {
-      const res = await axios.post("http://localhost:5000/chat", {
+      const res = await axios.post(`${API_BASE_URL}/chat`, {
         question,
         context,
       });

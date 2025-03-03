@@ -40,12 +40,10 @@ const NavBar: React.FC = () => {
       {/* Desktop Navigation */}
       {!isVertical && (
         <div className="navbar-buttons">
-          {/* ✅ Always Show "Home" Button */}
           {location.pathname !== "/" && (
             <Link to="/" className="home-link">Home</Link>
           )}
 
-          {/* ✅ Show other buttons only if NOT on HomePage */}
           {location.pathname !== "/" && (
             <>
               <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""}>Upload</Link>
@@ -85,12 +83,10 @@ const NavBar: React.FC = () => {
           
           {isDropdownOpen && (
             <div className="dropdown-menu">
-              {/* ✅ Always Show "Home" Button in Mobile */}
               {location.pathname !== "/" && (
                 <Link to="/" className="home-link" onClick={() => setIsDropdownOpen(false)}>Home</Link>
               )}
 
-              {/* ✅ Show other buttons only if NOT on HomePage */}
               {location.pathname !== "/" && (
                 <>
                   <Link to="/upload" className={location.pathname === "/upload" ? "active" : ""} onClick={() => setIsDropdownOpen(false)}>Upload</Link>
