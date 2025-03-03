@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ReactMarkdown from "react-markdown"; // ✅ Import Markdown renderer
-import "./ChatBox.css"; // ✅ Import styles
+import ReactMarkdown from "react-markdown";
+import "./ChatBox.css";
 
 interface ChatBoxProps {
   context: string;
@@ -10,20 +10,18 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
   const [question, setQuestion] = useState<string>("");
   const [response, setResponse] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); // ✅ Add loading state
   const [chatHistory, setChatHistory] = useState<{ question: string; answer: string }[]>([]);
   const [welcomeMessage, setWelcomeMessage] = useState<string>("");
 
   useEffect(() => {
-    setWelcomeMessage(
-      "Hi, How can I help you today?"
-    );
+    setWelcomeMessage("Hi, How can I help you today?");
   }, [context]);
 
   const handleSend = async () => {
     if (!question.trim()) return;
 
-    setLoading(true);
+    setLoading(true); // ✅ Set loading to true when sending
     setResponse("");
 
     try {
@@ -40,7 +38,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
       console.error("Error:", error);
       setResponse("❌ Error processing request.");
     } finally {
-      setLoading(false);
+      setLoading(false); // ✅ Set loading to false when complete (success or error)
     }
   };
 
@@ -50,13 +48,16 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
         {welcomeMessage && <p className="chat-welcome">{welcomeMessage}</p>}
         {chatHistory.map((chat, index) => (
           <div key={index} className="chat-message">
-            <p className="chat-question"><strong>You:</strong> {chat.question}</p>
+            <p className="chat-question">
+              <strong>You:</strong> {chat.question}
+            </p>
             <div className="chat-answer">
-              <strong>AI:</strong> 
-              <ReactMarkdown>{chat.answer}</ReactMarkdown> {/* ✅ Format AI response properly */}
+              <strong>AI:</strong>
+              <ReactMarkdown>{chat.answer}</ReactMarkdown>
             </div>
           </div>
         ))}
+        {loading && <p className="chat-loading">Thinking...</p>} {/* ✅ Loading message */}
       </div>
       <div className="chat-input-container">
         <textarea
@@ -64,11 +65,12 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           className="chat-input"
+          disabled={loading} // ✅ Disable input while loading
         />
-        <button 
-          onClick={handleSend} 
-          disabled={loading} 
-          className={`chat-send ${loading ? "loading" : ""}`} 
+        <button
+          onClick={handleSend}
+          disabled={loading}
+          className={`chat-send ${loading ? "loading" : ""}`}
         >
           {loading ? "" : ""}
         </button>

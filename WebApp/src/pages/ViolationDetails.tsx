@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import navigation hook
+import { useNavigate } from "react-router-dom";
 import { violationDescriptions } from "../data/ViolationList";
+import products from "../data/Products";
 import "./ViolationDetails.css";
 
 interface ViolationListProps {
@@ -9,7 +10,8 @@ interface ViolationListProps {
 }
 
 const ViolationDetails: React.FC<ViolationListProps> = ({ violation, onClose }) => {
-  const navigate = useNavigate(); // ✅ Use navigation hook
+  const navigate = useNavigate();
+  const relatedProducts = products[violation.class_name] || [];
 
   const handleFlagViolation = () => {
     alert("Violation has been flagged for review.");
@@ -21,32 +23,36 @@ const ViolationDetails: React.FC<ViolationListProps> = ({ violation, onClose }) 
         <h2 className="modal-title">{violation.class_name}</h2>
         <p>
           <strong>Regulation Description:</strong>{" "}
-          {violationDescriptions[violation.class_name as keyof typeof violationDescriptions] ?? 
+          {violationDescriptions[violation.class_name as keyof typeof violationDescriptions] ??
             "No description available."}
         </p>
 
         <h3>Possible Brady Products</h3>
-        <ul className="product-list">
-          <li>🔹 Lockout Tagout Devices</li>
-          <li>🔹 Safety Signage</li>
-          <li>🔹 Spill Control Kits</li>
-        </ul>
+        {relatedProducts.length > 0 ? (
+          <div className="product-grid">
+            {relatedProducts.map((product, index) => (
+              <a
+                key={index}
+                href={product.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="product-card"
+              >
+                {product.img && <img src={product.img} alt={product.name} className="product-image" />}
+                <p className="product-name">{product.name}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p>No recommended products for this violation.</p>
+        )}
 
-        {/* ✅ Updated Button Layout */}
         <div className="violation-buttons">
-        <button 
-          className="hazmapp-button" 
-          onClick={() => navigate("/hazmapp-report", { state: { violations: violation.class_name } })}
-        >
-          HazMapp Report
-        </button>
-
-
           <button
-            className="product-link"
-            onClick={() => window.open("https://www.bradyid.com/", "_blank")}
+            className="hazmapp-button"
+            onClick={() => navigate("/hazmapp-report", { state: { violations: violation.class_name } })}
           >
-            Find Products
+            HazMapp Report
           </button>
 
           <button className="flag-button" onClick={handleFlagViolation}>

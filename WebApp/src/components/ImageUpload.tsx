@@ -9,103 +9,114 @@ interface ImageUploadProps {
 }
 
 function ImageUpload({ onAddToHistory }: ImageUploadProps) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
   const navigate = useNavigate();
   const { isLoading, setLoading } = useLoadingState();
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImageSrc(imageUrl);
+    const files = event.target.files;
+    if (files) {
+      const newImages = Array.from(files).map(file => URL.createObjectURL(file));
+      setImages(newImages);
     }
   };
 
-  const processImage = async () => {
-    if (imageSrc) {
-      try {
-        setLoading(true);
+  const processImages = async () => {
+    if (images.length === 0) return;
 
-        // ✅ Convert the image to a Blob for sending to the backend
-        const response = await fetch(imageSrc);
+    try {
+      setLoading(true);
+      
+      // Process images sequentially
+      for (const image of images) {
+        const response = await fetch(image);
         const blob = await response.blob();
         const formData = new FormData();
         formData.append("image", blob, "image.jpg");
 
-        // ✅ Send image to Flask backend
         const res = await fetch("http://localhost:5000/process-image", {
           method: "POST",
           body: formData,
         });
 
         const data = await res.json();
-
-        // ✅ If successful, navigate to ViolationResults with processed data
+        
         if (data.status === "success") {
-          // ✅ Generate report string from violations
           const report = data.violations
             .map((v: Violation) => `${v.class_name} (${Math.round(v.confidence * 100)}%)`)
             .join(", ");
 
-          // ✅ Pass report to history
-          onAddToHistory(imageSrc, report, data.violations);
-          
-          navigate("/violation", { 
-            state: { imageUrl: imageSrc, processedData: data.violations } 
-          });
+          onAddToHistory(image, report, data.violations);
+
+          // Single image handling (like CameraComponent)
+          if (images.length === 1) {
+            navigate("/violation", {
+              state: { imageUrl: image, processedData: data.violations }
+            });
+            return; // Exit early for single image
+          }
         } else {
           console.error("Error processing image:", data.message);
         }
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setLoading(false);
       }
+
+      // Multi-image handling
+      if (images.length > 1) {
+        navigate("/reports");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const discardImage = () => {
-    setImageSrc(null);
-    // ✅ Reset input field so user can re-upload
+  const discardImages = () => {
+    setImages([]);
     const fileInput = document.getElementById("file-upload") as HTMLInputElement;
     if (fileInput) fileInput.value = "";
   };
 
   return (
     <div className={`image-upload-container ${isLoading ? "pointer-events-none select-none opacity-50" : ""}`}>
-      <h1>Upload Your Image</h1>
-      <p>Upload an image to check for safety hazards.</p>
-
-      {/* ✅ Hide input if image is uploaded */}
-      {!imageSrc && (
+      <h1>Upload Images</h1>
+      <p>Upload multiple images to check for safety hazards.</p>
+  
+      {!images.length && (
         <>
           <input 
             type="file" 
             accept="image/*" 
             id="file-upload"
+            multiple
             className="image-upload-input"
             onChange={handleImageChange} 
             disabled={isLoading} 
           />
           <label htmlFor="file-upload" className={`image-upload-label ${isLoading ? "disabled" : ""}`}>
-            {isLoading ? "Uploading..." : "Choose File"}
+            {isLoading ? "Uploading..." : "Choose Files"}
           </label>
         </>
       )}
-
-      {imageSrc && (
-        <div className="image-preview">
-          <img src={imageSrc} alt="Uploaded Preview" />
+  
+      {images.length > 0 && (
+        <div className="image-previews grid">
+          {images.map((img, index) => (
+            <div key={index} className="image-preview">
+              <img src={img} alt={`Preview ${index + 1}`} />
+            </div>
+          ))}
         </div>
       )}
 
-      {imageSrc && (
+      {images.length > 0 && (
         <div className="upload-buttons">
-          <button onClick={processImage} disabled={isLoading}>
-            {isLoading ? "Processing..." : "Process Image"}
+          <button onClick={processImages} disabled={isLoading}>
+            {isLoading ? "Processing..." : "Process All Images"}
           </button>
-          <button onClick={discardImage} disabled={isLoading} className="cancel-btn">
-            Cancel
+          <button onClick={discardImages} disabled={isLoading} className="cancel-btn">
+            Clear All
           </button>
         </div>
       )}

@@ -67,4 +67,18 @@
     }
   } 
 
+  .history-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 50px;
+  }
   
+  .history-page {
+    padding: 1rem;
+  }
+
+  /* Add these styles */
+.no-history-message {
+  text-align: center;
+  margin: 1rem 0;
+}

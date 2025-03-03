@@ -1,22 +1,3 @@
-/* ✅ Chat Container - Centered, Full-Screen Chat UI */
-.chat-container {
-    width: 100%;
-    max-width: 800px;  /* ✅ Prevents extra-wide chat */
-    height: 95vh;  /* ✅ Prevents overflowing on larger screens */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* ✅ Keeps input at bottom */
-    align-items: center;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 15px;
-    margin: auto; /* ✅ Centers the chatbox */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    border-radius: 12px;
-    transition: background-color 0.3s, color 0.3s;
-    overflow: hidden;
-}
-
 /* ✅ Chat History - Scrollable & Styled */
 .chat-history {
     flex-grow: 1;

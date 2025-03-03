@@ -11,6 +11,7 @@ import PocketHazmapp from './pages/PocketHazmapp';
 import HazMappReport from './data/HazMappReport';
 import { LoadingStateProvider } from './components/LoadingState';
 import { Violation } from './pages/ViolationResults';
+import "./index.css";
 
 const App: React.FC = () => {
   const [isVertical, setIsVertical] = useState(window.innerWidth < window.innerHeight);

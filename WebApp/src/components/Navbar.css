@@ -9,7 +9,7 @@
 
 /* ✅ Dark mode */
 body.dark-mode {
-    --nav-bg-color: #171c23c3;
+    --nav-bg-color: #1e242e;
     --nav-text-color: #f9fafb;
     --button-bg: #374151;
     --button-text: #f9fafb;
@@ -170,6 +170,11 @@ input:checked + .slider:before {
     color: var(--nav-text-color);
     padding: 10px;
     transition: color 0.3s ease-in-out;
+    outline: none; 
+}
+
+.dropdown-toggle:focus {
+    outline: none; 
 }
 
 /* ✅ Dropdown Menu */
@@ -193,6 +198,7 @@ input:checked + .slider:before {
     overflow-y: auto;
     z-index: 1000;
 }
+
 
 /* ✅ Improve Dropdown Buttons */
 .dropdown-menu a {
@@ -273,3 +279,4 @@ input:checked + .slider:before {
         padding: 8px;
     }
 }
+

@@ -101,10 +101,14 @@ const NavBar: React.FC = () => {
               )}
 
               {/* Dark Mode Toggle - Mobile */}
-              <div className="dark-mode-toggle" onClick={() => setIsDarkMode(!isDarkMode)}>
+              <div className="dark-mode-toggle">
                 <span>Dark Mode</span>
                 <label className="switch">
-                  <input type="checkbox" checked={isDarkMode} onChange={() => setIsDarkMode(!isDarkMode)} />
+                  <input 
+                    type="checkbox" 
+                    checked={isDarkMode} 
+                    onChange={() => setIsDarkMode(!isDarkMode)}
+                  />
                   <span className="slider round"></span>
                 </label>
               </div>
