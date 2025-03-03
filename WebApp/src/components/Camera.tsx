@@ -2,7 +2,9 @@ import { useRef, useState, useCallback } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
-import { Violation } from "../pages/ViolationResults"; 
+import { Violation } from "../pages/ViolationResults";
+import "./Camera.css"; 
+import API_BASE_URL from "../config";
 
 interface CameraProps {
   onAddToHistory: (
@@ -78,35 +80,57 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
   };
 
   return (
-    <div className={`camera-container ${isLoading ? "pointer-events-none select-none opacity-50" : ""}`}>
-      <h1 className="camera-heading">Take a Picture</h1>
+    <div
+      style={{ textAlign: "center" }}
+      className={isLoading ? "pointer-events-none select-none opacity-50" : ""}
+    >
+      <h1>Take a Picture</h1>
       {imgSrc ? (
-        <div className="image-container">
-          <img src={imgSrc} alt="Captured" className="captured-image" />
-          <div className="button-container">
+        <div>
+          <img
+            src={imgSrc}
+            alt="Captured"
+            style={{ width: "100%", maxWidth: "400px" }}
+          />
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
             <button
               onClick={processImage}
               disabled={isLoading}
-              className="button"
+              style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
             >
               {isLoading ? "Processing..." : "Process Image"}
             </button>
-            <button onClick={retake} disabled={isLoading} className="button">
+            <button
+              onClick={retake}
+              disabled={isLoading}
+              style={{ backgroundColor: "#dc3545", color: "white" }}
+            >
               Retake
             </button>
           </div>
         </div>
       ) : (
-        <div className="webcam-container">
+        <div>
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            className="webcam-preview"
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              border: "2px solid black",
+            }}
             videoConstraints={videoConstraints}
           />
-          <div className="button-container">
-            <button onClick={capture} disabled={isLoading} className="button">
+          <div>
+            <button onClick={capture} disabled={isLoading}>
               Capture Photo
             </button>
           </div>
