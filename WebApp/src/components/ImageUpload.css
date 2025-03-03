@@ -137,13 +137,16 @@
 
 .image-previews.grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px; 
-    padding: 0.5rem; 
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    padding: 0.5rem;
     justify-content: center;
     align-items: center;
     max-width: 1400px;
-  }
+    margin: 0 auto; /* Add this line */
+    width: 100%; /* Add this line */
+}
+
   
   .image-preview {
     width: 100%;

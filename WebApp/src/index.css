@@ -30,6 +30,8 @@
 .dark-mode {
   color: rgba(255, 255, 255, 0.87);
   background-color: #1f262f; /* Kept your original color */
+  --html-bg: #1f262f; /* ✅ Update this instead of background-color */
+  --bg-color: #1f262f;
 
   /* ✅ Dark Mode Colors */
   --bg-color: #1f262f;
@@ -52,6 +54,24 @@ body {
   min-width: 320px;
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
+}
+
+/* ✅ Root Background Fix */
+/* ✅ Root Background Fix */
+:root {
+  --html-bg: var(--bg-color); /* ✅ Create explicit variable */
+}
+
+html {
+  background-color: var(--html-bg); /* ✅ Use dedicated variable */
+  transition: background-color 0.3s;
+}
+
+body {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -283,13 +303,6 @@ input:checked + .slider::before {
   .modal-title {
     font-size: 1.4rem;
   }
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 #root {
