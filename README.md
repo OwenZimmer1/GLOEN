@@ -112,6 +112,7 @@ GLOEN/
 **Secure & Scalable** – Uses Azure for storage and processing scalability.  
 
 ## Google Colab for training and testing of features and functionalities of the model, and saving to drive: 
-```
+
 https://colab.research.google.com/drive/1WvrcOQAOi42zF2t610bJgvTRxfN7A5vC?usp=sharing
-```
+
+(The Pocket Hazmap(Chatbot) and Hazmap report were compromised due to security and privacy reasons, we are working on fixing this issue)
