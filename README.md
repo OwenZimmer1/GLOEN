@@ -14,7 +14,7 @@
 
 
 ##  Overview
-GLOEN is a **web application** that utilizes **machine learning** to detect and analyze **OSHA (Occupational Safety and Health Administration) violations** in workplace images. Users can upload photos, and the system will assess potential hazards based on OSHA regulations, log violations, and generate reports.
+GLOEN is a **web application** that utilizes **machine learning** to detect and analyze **OSHA (Occupational Safety and Health Administration) violations** in workplace images. Users can upload photos, and the system will assess potential hazards based on OSHA regulations and log violations and generate reports. NOTE: Before running through the commands in this readme, replace the API_key in .env with what was posted on canvas. If the API_KEY is posted in a public repo, it is immediately taken down and disabled by OpenAI, rendering the chatbot and report generation impossible, please make sure to do this before running through the steps in the readme, that follow. This is an extra-functionality user convenience and an additional feature that personalises and elevates user experience.
 
 
 ---
