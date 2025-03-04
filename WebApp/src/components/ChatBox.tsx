@@ -91,9 +91,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
           onClick={handleSend}
           disabled={loading}
           className={`chat-send ${loading ? "loading" : ""}`}
-        >
-          {/* {loading ? "" : "Send"} */}
-        </button>
+        />
       </div>
     </div>
   );
