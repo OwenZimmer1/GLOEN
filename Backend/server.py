@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # ✅ Load the YOLOv8 model
-MODEL_PATH = "models/bestAbhi.pt"
+MODEL_PATH = "models/bestAbhi2.pt"
 model = YOLO(MODEL_PATH)
 
 # ✅ Define class names (ensure these match your trained model)
@@ -53,7 +53,7 @@ def process_image():
         print("\n📢 Model Probabilities:", probs)
 
         # ✅ Select ALL violations above confidence threshold
-        confidence_threshold = 0.14  # Lowered to detect more violations
+        confidence_threshold = 0.03  # Lowered to detect more violations
         violations_detected = [
             {
                 "class_id": i,
@@ -63,7 +63,13 @@ def process_image():
             for i, prob in enumerate(probs[:-1]) if prob > confidence_threshold  # Exclude "No Violation"
         ]
 
-        # ✅ Only return "No Violation" if its confidence is above 50%
+        # ✅ Sort violations by confidence (highest first)
+        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
+
+        # ✅ Limit to top 3 violations only
+        violations_detected = violations_detected[:3]  # Keep only top 3
+
+        # ✅ Only return "No Violation" if its confidence is above 50% AND no top violations are detected
         no_violation_confidence = round(probs[6], 2)
         if not violations_detected and no_violation_confidence > 0.5:
             violations_detected = [{
@@ -72,15 +78,13 @@ def process_image():
                 "confidence": no_violation_confidence
             }]
 
-        # ✅ Sort violations by confidence (highest first)
-        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
-
         print("✅ Final Predictions:", violations_detected)
 
         return jsonify({"status": "success", "violations": violations_detected})
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
     
 # ✅ Load OpenAI API Key Securely
 load_dotenv()
