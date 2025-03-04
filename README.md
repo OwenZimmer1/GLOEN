@@ -1,123 +1,95 @@
-# GLOEN
-- [GLOEN](#gloen)
-    - [📂 **Project Structure**](#-project-structure)
-    - [**💡 Project Features**](#-project-features)
-  - [Backend server running steps:](#backend-server-running-steps)
-    - [Requirements](#requirements)
-    - [Step 1: Create a Virtual Environment](#step-1-create-a-virtual-environment)
-    - [Step 2: Install Dependencies](#step-2-install-dependencies)
-    - [Step 3: Start the Server](#step-3-start-the-server)
-  - [How to run the WebApp](#how-to-run-the-webapp)
-    - [1. Open a terminal](#1-open-a-terminal)
-    - [2. Navigate to the web app directory using this command](#2-navigate-to-the-web-app-directory-using-this-command)
-    - [3. Install the dependencies](#3-install-the-dependencies)
-    - [4. Start the server](#4-start-the-server)
-  - [Enable RAG with OpenAI API Key](#enable-rag-with-openai-api-key)
-    - [1. Create a new file inside GLOEN/backend named .env](#1-create-a-new-file-inside-gloenbackend-named-env)
-    - [2. Save your OpenAI API key inside .env:](#2-save-your-openai-api-key-inside-env)
-    - [3. Install the new dependency (python-dotenv, openai)](#3-install-the-new-dependency-python-dotenv-openai)
-    - [4. Restart the backend as before:](#4-restart-the-backend-as-before)
+# GLOEN - AI-Powered OSHA Violation Detection
 
-### 📂 **Project Structure**
-This project is a **React-based web app** that analyzes OSHA violations using machine learning. Below is the folder structure:
+## 📌 Overview
+GLOEN is a **web application** that utilizes **machine learning** to detect and analyze **OSHA (Occupational Safety and Health Administration) violations** in workplace images. Users can upload photos, and the system will assess potential hazards based on OSHA regulations, log violations, and generate reports.
 
+## 🚀 Features
+✅ **Upload & Analyze Images** – Users can upload images for AI-based OSHA violation detection.  
+✅ **View OSHA Regulations** – Displays workplace safety rules related to detected violations.  
+✅ **Violation Logging** – Users can log, save, and retrieve detected violations.  
+✅ **Chatbot Assistance** – AI-powered chatbot provides OSHA-related guidance.  
+✅ **Share & Print Reports** – Generate PDF reports or print violation details.  
+✅ **Secure & Scalable** – Uses Azure for storage and processing scalability.  
+
+---
+
+## 🏗 Project Structure
 ```
-/src
-│── /assets       # Stores static files (images, icons, etc.)
-│── /components   # Reusable UI components (buttons, forms, etc.)
-│── /pages        # Full-page components (Home, Upload, Reports, etc.)
-│── /utils        # Utility/helper functions (formatting, validation, etc.)
-│── /services     # API calls & backend interactions
-│── App.tsx       # Main entry point of the React app
-│── main.tsx     # React app root
-```
-
-### **💡 Project Features**
-✅ **Upload Image** – Users can upload an image to check for OSHA violations.  
-✅ **View Regulations** – Displays OSHA rules related to workplace safety.  
-✅ **Log Violations** – Stores detected violations for future reference.  
-✅ **Share, Print, & Save as PDF** – Options to share or print violation reports.  
-✅ **Contact Us** – A page for users to reach out for support.  
-
-## Backend server running steps:
-
-### Requirements
-
-```
-Flask==3.1.0
-Flask-Cors==5.0.1
-torch==2.6.0
-torchvision==0.21.0
-ultralytics==8.3.80
-numpy==2.1.1
-opencv-python==4.11.0.86
+GLOEN/
+├── Backend/               # Flask-based backend server
+│   ├── requirements.txt   # Dependencies
+│   ├── server.py          # Main backend server script
+│   ├── .env               # Environment variables (API keys, configs)
+│   ├── models/            # ML models for violation detection
+│   │   └── bestabhi2.pt   # Trained model for OSHA violations
+│
+├── WebApp/                # React-based frontend application
+│   ├── public/            # Static files
+│   ├── src/               # Frontend source code
+│   │   ├── assets/        # Images, icons, and static assets
+│   │   ├── components/    # Reusable UI components (ImageUpload, ChatBox, etc.)
+│   │   ├── data/          # Data-related files (ViolationList, Reports, etc.)
+│   │   ├── pages/         # Full-page components (History, Results, etc.)
+│   │   ├── App.tsx        # Main application entry point
+│   │   ├── main.tsx       # React root file
+│   ├── package.json       # Frontend dependencies
+│   ├── vite.config.ts     # Vite configuration file
+│   ├── tsconfig.json      # TypeScript configuration
+│
+├── model/                 # ML model training and testing scripts
+│   ├── resume_train.py    # Resume training the model
+│   ├── test.py            # Test the trained model
+│   └── train.py           # Train the AI model from scratch
+│   └── Readme.md          # Details about this folder
+│
+└── .github/               # GitHub Actions for CI/CD
+    └── workflows/         # Automated deployment workflows
+        └── main.yml                   # Main workflow file
 ```
 
-### Step 1: Create a Virtual Environment
+---
 
-**Windows:**
-```powershell
+## 🔧 Backend Setup (Flask Server)
+### **1. Install Dependencies**
+Ensure you have Python installed, then run:
+```bash
 python -m venv venv
-.\venv\Scripts\activate
-```
-
-**macOS/Linux:**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### Step 2: Install Dependencies
-
-```bash
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
-### Step 3: Start the Server
-
+### **2. Start the Backend Server**
 ```bash
 python server.py
 ```
 
-## How to run the WebApp
+---
 
-### 1. Open a terminal 
-### 2. Navigate to the web app directory using this command 
-
-```sh
+## 🌐 Frontend Setup (React WebApp)
+### **1. Install Dependencies**
+Ensure Node.js is installed, then run:
+```bash
 cd WebApp
-```
-
-### 3. Install the dependencies 
-
-```sh
 npm install
-npm install react-webcam
-npm install react-router-dom
-npm install lucide-react  
+npm install react-webcam react-router-dom lucide-react
 ```
 
-### 4. Start the server 
-
-```sh
+### **2. Start the Frontend Server**
+```bash
 npm run dev
 ```
 
+---
 
-## Enable RAG with OpenAI API Key
+## 📌 Usage Workflow
+1. **Start the backend and frontend servers.**
+2. **Upload an image** for OSHA violation analysis.
+3. **View detected violations** and related OSHA regulations.
+4. **Log, print, or share** reports as needed.
+5. **Chat with the AI assistant** for safety compliance help.
 
-To enable Retrieval-Augmented Generation (RAG) for the chatbot, follow these steps:
+---
 
-### 1. Create a new file inside GLOEN/backend named .env
-### 2. Save your OpenAI API key inside .env:
-```
-OPENAI_API_KEY='your_api_key_here'
-```
-### 3. Install the new dependency (python-dotenv, openai)
-```
-pip install python-dotenv
-```
-### 4. Restart the backend as before:
-```
-python server.py
-```
+## 🏗 Future Improvements
+- 🔹 **Expand AI Model** – Improve accuracy with larger datasets.
