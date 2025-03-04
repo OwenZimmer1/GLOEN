@@ -17,7 +17,6 @@
 GLOEN is a **web application** that utilizes **machine learning** to detect and analyze **OSHA (Occupational Safety and Health Administration) violations** in workplace images. Users can upload photos, and the system will assess potential hazards based on OSHA regulations, log violations, and generate reports.
 
 
-
 ---
 
 ## Usage Workflow
@@ -43,6 +42,7 @@ source venv/bin/activate  # macOS/Linux
 venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
+**Note: if installation taking too long we suggest going to the requirements.txt file and installing 1 dependency at a time**
 
 ### **2. Start the Backend Server**
 ```bash

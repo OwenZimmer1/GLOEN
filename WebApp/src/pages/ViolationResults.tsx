@@ -79,7 +79,7 @@ const ViolationResults: React.FC = () => {
                       className="violation-item"
                       onClick={() => handleViolationClick(violation)}
                     >
-                      <strong>{violation.class_name}</strong> - {(violation.confidence * 100).toFixed(2)}%
+                      <strong>{violation.class_name}</strong>
                     </button>
                   ))}
                 </div>
