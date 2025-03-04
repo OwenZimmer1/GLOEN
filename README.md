@@ -33,10 +33,9 @@ This project is a **React-based web app** that analyzes OSHA violations using ma
 ✅ **Share, Print, & Save as PDF** – Options to share or print violation reports.  
 ✅ **Contact Us** – A page for users to reach out for support.  
 
-# YOLOv8 Object Detection API
 ## Backend server running steps:
 
-## Requirements
+### Requirements
 
 ```
 Flask==3.1.0
@@ -47,8 +46,6 @@ ultralytics==8.3.80
 numpy==2.1.1
 opencv-python==4.11.0.86
 ```
-
-## How to run the WebApp
 
 ### Step 1: Create a Virtual Environment
 
@@ -76,29 +73,45 @@ pip install -r requirements.txt
 python server.py
 ```
 
-### Step 4: Create new terminal 
+## How to run the WebApp
 
-In a new terminal navigate to GLOEN/WebApp and run:
+### 1. Open a terminal 
+### 2. Navigate to the web app directory using this command 
+
+```sh
+cd WebApp
 ```
+
+### 3. Install the dependencies 
+
+```sh
+npm install
+npm install react-webcam
+npm install react-router-dom
+npm install lucide-react  
+```
+
+### 4. Start the server 
+
+```sh
 npm run dev
 ```
 
 
-### Step 5: Enable RAG with OpenAI API Key
+## Enable RAG with OpenAI API Key
 
 To enable Retrieval-Augmented Generation (RAG) for the chatbot, follow these steps:
 
-Create a new file inside GLOEN/backend named .env
-Save your OpenAI API key inside .env:
+### 1. Create a new file inside GLOEN/backend named .env
+### 2. Save your OpenAI API key inside .env:
 ```
 OPENAI_API_KEY='your_api_key_here'
 ```
-Install the new dependency (python-dotenv, openai)
+### 3. Install the new dependency (python-dotenv, openai)
 ```
 pip install python-dotenv
 ```
-Restart the backend as before:
+### 4. Restart the backend as before:
 ```
 python server.py
 ```
-Now, the chatbot in PocketHazmapp will work correctly using RAG! 🎉
