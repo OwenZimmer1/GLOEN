@@ -50,6 +50,7 @@ GLOEN/
 ---
 
 ## 🔧 Backend Setup (Flask Server)
+Navigate to GLOEN/backend/
 ### **1. Install Dependencies**
 Ensure you have Python installed, then run:
 ```bash
@@ -67,6 +68,7 @@ python server.py
 ---
 
 ## 🌐 Frontend Setup (React WebApp)
+While the server is running create a new terminal and navigate to GLOEN/Webapp
 ### **1. Install Dependencies**
 Ensure Node.js is installed, then run:
 ```bash
