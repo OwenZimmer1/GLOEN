@@ -13,7 +13,7 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
   // State management for chat interactions
   const [question, setQuestion] = useState<string>(""); // Current user input
-  const [response, setResponse] = useState<string>(""); // AI response
+  const [, setResponse] = useState<string>(""); // AI response
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [chatHistory, setChatHistory] = useState<
     { question: string; answer: string }[]
