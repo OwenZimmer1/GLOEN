@@ -63,13 +63,7 @@ def process_image():
             for i, prob in enumerate(probs[:-1]) if prob > confidence_threshold  # Exclude "No Violation"
         ]
 
-        # ✅ Sort violations by confidence (highest first)
-        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
-
-        # ✅ Limit to top 3 violations only
-        violations_detected = violations_detected[:3]  # Keep only top 3
-
-        # ✅ Only return "No Violation" if its confidence is above 50% AND no top violations are detected
+        # ✅ Only return "No Violation" if its confidence is above 50%
         no_violation_confidence = round(probs[6], 2)
         if not violations_detected and no_violation_confidence > 0.5:
             violations_detected = [{
@@ -78,13 +72,15 @@ def process_image():
                 "confidence": no_violation_confidence
             }]
 
+        # ✅ Sort violations by confidence (highest first)
+        violations_detected.sort(key=lambda x: x["confidence"], reverse=True)
+
         print("✅ Final Predictions:", violations_detected)
 
         return jsonify({"status": "success", "violations": violations_detected})
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-
     
 # ✅ Load OpenAI API Key Securely
 load_dotenv()
