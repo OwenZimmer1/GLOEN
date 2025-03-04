@@ -21,6 +21,6 @@ jobs:
       - name: Deploy Flask App to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "hazmappbackend"  # Replace with your Azure App Service name
-          resource-group: "HazmappBackend"  # Your Azure Resource Group
+          app-name: "gloen"  # Replace with your Azure App Service name
+          resource-group: "BRD-Grp4"  # Your Azure Resource Group
           package: .
