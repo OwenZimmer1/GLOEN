@@ -31,25 +31,18 @@ const ViolationResults: React.FC = () => {
 
   const handlePrint = () => {
     if (printRef.current) {
-      const printContent = `
-        <html>
-          <head>
-            <title>Violation Report</title>
-            <link rel="stylesheet" type="text/css" href="/styles/ViolationResults.css">
-          </head>
-          <body>
-            <h2>Violation Report</h2>
-            ${imageUrl ? `<img src="${imageUrl}" alt="Uploaded" class="violation-image" style="max-width: 300px;"/>` : ""}
-            <ul>
-              ${violations.map(v => `<li><strong>${v.class_name}</strong> - Confidence: ${(v.confidence * 100).toFixed(2)}%</li>`).join("")}
-            </ul>
-          </body>
-        </html>
-      `;
-
+      const printContent = printRef.current.innerHTML;
       const newWindow = window.open("", "_blank");
       if (newWindow) {
-        newWindow.document.write(printContent);
+        newWindow.document.write(`
+          <html>
+            <head>
+              <title>Violation Report</title>
+              <link rel="stylesheet" type="text/css" href="/styles/ViolationResults.css">
+            </head>
+            <body>${printContent}</body>
+          </html>
+        `);
         newWindow.document.close();
         newWindow.print();
       }
@@ -79,7 +72,7 @@ const ViolationResults: React.FC = () => {
                       className="violation-item"
                       onClick={() => handleViolationClick(violation)}
                     >
-                      <strong>{violation.class_name}</strong> - {(violation.confidence * 100).toFixed(2)}%
+                      <strong>{violation.class_name}</strong>
                     </button>
                   ))}
                 </div>
@@ -93,7 +86,7 @@ const ViolationResults: React.FC = () => {
             {imageUrl && (
               <LogActions
                 imageUrl={imageUrl}
-                violationType={violations.map((v) => `${v.class_name} (${(v.confidence * 100).toFixed(2)}%)`).join(", ")}
+                violationType={violations.map((v) => v.class_name).join(", ")}
                 onPrint={handlePrint}
               />
             )}
