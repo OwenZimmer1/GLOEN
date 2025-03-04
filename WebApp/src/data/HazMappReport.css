@@ -1,133 +1,139 @@
 .hazmapp-report-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: var(--bg-color); 
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(17, 12, 52, 0.359);
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .dark-mode .hazmapp-report-container {
-    background: #232931;
-  }
-  
-  .report-title {
-    text-align: left;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: 20px;
-  }
-  
-  .report-content {
-    text-align: left;
-    font-size: 16px;
-    font-style: italic;
-    color: var(--text-color);
-    line-height: 1.8;
-    background: var(--nav-bg-color);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  /* AI Response Markdown Formatting */
-  .report-content h1, 
-  .report-content h2, 
-  .report-content h3 {
-    color: var(--text-color);
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 10px;
-  }
-  
-  .report-content p {
-    margin-bottom: 10px;
-  }
-  
-  .report-content ul {
-    padding-left: 20px;
-  }
-  
-  .report-content li {
-    margin-bottom: 5px;
-  }
-  
-  .loading-message {
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--button-bg);
-    text-align: center;
-    margin-top: 20px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  
-  /* Keyframes for Emoji Switching Animation */
-  @keyframes switch-emoji {
-    0% { content: "👷🧯⚠️⛑️☢️"; }
-    20% { content: "☢️👷🧯⚠️⛑️"; }
-    40% { content: "⛑️☢️👷🧯⚠️"; }
-    60% { content: "⚠️⛑️☢️👷🧯"; }
-    80% { content: "🧯⚠️⛑️☢️👷"; }
-    100% { content: "👷🧯⚠️⛑️☢️"; }
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(17, 12, 52, 0.359);
+  transition: background-color 0.3s, color 0.3s;
 }
-  
-  /* Apply the Keyframes */
-  .loading-message::after {
-      content: "👷🧯⚠️⛑️☢️"; /* Default state */
-      animation: switch-emoji 1.5s linear infinite;
+
+.dark-mode .hazmapp-report-container {
+  background: #232931;
+}
+
+.report-title {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.report-content {
+  text-align: left;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-color);
+  line-height: 1.8;
+  background: var(--nav-bg-color);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.report-content h1,
+.report-content h2,
+.report-content h3 {
+  color: var(--text-color);
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.report-content p {
+  margin-bottom: 10px;
+}
+
+.report-content ul {
+  padding-left: 20px;
+}
+
+.report-content li {
+  margin-bottom: 5px;
+}
+
+.loading-message {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--button-bg);
+  text-align: center;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes switch-emoji {
+  0% {
+    content: "👷🧯⚠️⛑️☢️";
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .hazmapp-report-container {
-      width: 90%;
-      padding: 15px;
-    }
-  
-    .report-title {
-      font-size: 20px;
-    }
-  
-    .report-content {
-      font-size: 14px;
-      padding: 12px;
-    }
-  
-    .loading-message {
-      font-size: 20px;
-    }
+  20% {
+    content: "☢️👷🧯⚠️⛑️";
   }
-  
-  @media (max-width: 480px) {
-    .hazmapp-report-container {
-      width: 95%;
-    }
-  
-    .report-title {
-      font-size: 18px;
-    }
-  
-    .report-content {
-      font-size: 13px;
-    }
-  
-    .loading-message {
-      font-size: 18px;
-    }
+  40% {
+    content: "⛑️☢️👷🧯⚠️";
   }
-  /* Bottom Button Container */
+  60% {
+    content: "⚠️⛑️☢️👷🧯";
+  }
+  80% {
+    content: "🧯⚠️⛑️☢️👷";
+  }
+  100% {
+    content: "👷🧯⚠️⛑️☢️";
+  }
+}
+
+.loading-message::after {
+  content: "👷🧯⚠️⛑️☢️";
+  animation: switch-emoji 1.5s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .hazmapp-report-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .report-title {
+    font-size: 20px;
+  }
+
+  .report-content {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .loading-message {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hazmapp-report-container {
+    width: 95%;
+  }
+
+  .report-title {
+    font-size: 18px;
+  }
+
+  .report-content {
+    font-size: 13px;
+  }
+
+  .loading-message {
+    font-size: 18px;
+  }
+}
 .bottom-button-container {
   display: flex;
   justify-content: center;
   margin-top: 5px;
 }
-

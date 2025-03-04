@@ -1,10 +1,11 @@
 import { useRef, useState, useCallback } from "react";
-import Webcam from "react-webcam";
+import Webcam from "react-webcam"; // React webcam component
 import { useNavigate } from "react-router-dom";
 import { useLoadingState } from "./LoadingState";
 import { Violation } from "../pages/ViolationResults";
 import API_BASE_URL from "../config";
 
+// Interface for component props
 interface CameraProps {
   onAddToHistory: (
     imageUrl: string,
@@ -13,12 +14,17 @@ interface CameraProps {
   ) => void;
 }
 
+// Camera component for capturing and processing images
 function CameraComponent({ onAddToHistory }: CameraProps) {
+  // Webcam reference for capturing screenshots
   const webcamRef = useRef<Webcam>(null);
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
+
+  // State management
+  const [imgSrc, setImgSrc] = useState<string | null>(null); // Captured image URL
   const navigate = useNavigate();
   const { isLoading, setLoading } = useLoadingState();
 
+  // Memoized capture function to prevent unnecessary re-renders
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
@@ -26,21 +32,23 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     }
   }, []);
 
+  // Reset captured image
   const retake = () => {
     setImgSrc(null);
   };
 
+  // Process captured image through backend API
   const processImage = async () => {
     if (imgSrc) {
       try {
         setLoading(true);
 
-        // Convert base64 image to file format for backend
+        // Convert base64 image to file format for backend processing
         const blob = await fetch(imgSrc).then((res) => res.blob());
         const formData = new FormData();
         formData.append("image", blob, "captured.jpg");
 
-        // Send to backend
+        // Send image to backend for processing
         const response = await fetch(`${API_BASE_URL}/process-image`, {
           method: "POST",
           body: formData,
@@ -50,6 +58,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
         console.log("Backend response:", data);
 
         if (data.status === "success") {
+          // Format violation report
           const report = data.violations
             .map(
               (v: Violation) =>
@@ -57,7 +66,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
             )
             .join(", ");
 
-          //Pass processedData to history
+          // Update history and navigate
           onAddToHistory(imgSrc, report, data.violations);
 
           navigate("/violation", {
@@ -74,6 +83,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     }
   };
 
+  // Camera configuration for environment-facing camera
   const videoConstraints = {
     facingMode: "environment",
   };
@@ -85,6 +95,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
     >
       <h1>Take a Picture</h1>
       {imgSrc ? (
+        // Captured image preview
         <div>
           <img
             src={imgSrc}
@@ -116,6 +127,7 @@ function CameraComponent({ onAddToHistory }: CameraProps) {
           </div>
         </div>
       ) : (
+        // Webcam view
         <div>
           <Webcam
             audio={false}
