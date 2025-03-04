@@ -92,7 +92,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ context }) => {
           disabled={loading}
           className={`chat-send ${loading ? "loading" : ""}`}
         >
-          {loading ? "" : "Send"}
+          {/* {loading ? "" : "Send"} */}
         </button>
       </div>
     </div>
