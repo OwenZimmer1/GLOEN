@@ -59,6 +59,8 @@ Ensure Node.js is installed, then run:
 cd WebApp
 npm install
 npm install react-webcam react-router-dom lucide-react
+npm install react-markdown
+npm install axios
 ```
 
 ### **2. Start the Frontend Server**
@@ -109,4 +111,7 @@ GLOEN/
 **Share & Print Reports** – Generate PDF reports or print violation details.  
 **Secure & Scalable** – Uses Azure for storage and processing scalability.  
 
-## Google Colab for training and testing of features and functionalities of the model, and saving to drive: https://colab.research.google.com/drive/1WvrcOQAOi42zF2t610bJgvTRxfN7A5vC?usp=sharing
+## Google Colab for training and testing of features and functionalities of the model, and saving to drive: 
+```
+https://colab.research.google.com/drive/1WvrcOQAOi42zF2t610bJgvTRxfN7A5vC?usp=sharing
+```
