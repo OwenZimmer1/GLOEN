@@ -108,3 +108,5 @@ GLOEN/
 **Chatbot Assistance** – AI-powered chatbot provides OSHA-related guidance.  
 **Share & Print Reports** – Generate PDF reports or print violation details.  
 **Secure & Scalable** – Uses Azure for storage and processing scalability.  
+
+## Google Colab for training and testing of features and functionalities of the model, and saving to drive: https://colab.research.google.com/drive/1WvrcOQAOi42zF2t610bJgvTRxfN7A5vC?usp=sharing
