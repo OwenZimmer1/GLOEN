@@ -1,5 +1,19 @@
 # GLOEN - AI-Powered OSHA Violation Detection
 
+- [GLOEN - AI-Powered OSHA Violation Detection](#gloen---ai-powered-osha-violation-detection)
+  - [📌 Overview](#-overview)
+  - [🚀 Features](#-features)
+  - [🏗 Project Structure](#-project-structure)
+  - [🔧 Backend Setup (Flask Server)](#-backend-setup-flask-server)
+    - [**1. Install Dependencies**](#1-install-dependencies)
+    - [**2. Start the Backend Server**](#2-start-the-backend-server)
+  - [🌐 Frontend Setup (React WebApp)](#-frontend-setup-react-webapp)
+    - [**1. Install Dependencies**](#1-install-dependencies-1)
+    - [**2. Start the Frontend Server**](#2-start-the-frontend-server)
+  - [📌 Usage Workflow](#-usage-workflow)
+  - [🏗 Future Improvements](#-future-improvements)
+
+
 ## 📌 Overview
 GLOEN is a **web application** that utilizes **machine learning** to detect and analyze **OSHA (Occupational Safety and Health Administration) violations** in workplace images. Users can upload photos, and the system will assess potential hazards based on OSHA regulations, log violations, and generate reports.
 
