@@ -23,11 +23,6 @@ jobs:
         with:
           python-version: '3.9'  # Match your Flask app’s Python version
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
